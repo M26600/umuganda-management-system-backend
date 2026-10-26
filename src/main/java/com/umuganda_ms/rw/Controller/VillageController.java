@@ -57,4 +57,13 @@ public class VillageController {
             return ResponseEntity.ok(message);
         }
     }
+    @GetMapping("/by-sector-name")
+public ResponseEntity<List<Village>> getVillagesBySectorName(
+        @RequestParam String sectorName) {
+
+    List<Village> villages =
+            villageService.getVillagesBySectorName(sectorName);
+
+    return ResponseEntity.ok(villages);
+}
 }

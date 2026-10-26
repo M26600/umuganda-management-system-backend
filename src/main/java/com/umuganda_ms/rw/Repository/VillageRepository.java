@@ -4,5 +4,6 @@ import org.springframework.data.jpa.repository.*;
 import java.util.*;
 import com.umuganda_ms.rw.domain.Village;
 public interface VillageRepository extends JpaRepository <Village, UUID>{
-
+//B1 task
+List <Village> findBySectorNameIgnoreCaseOrderByVillageNameAsc(String sectorName);
 }

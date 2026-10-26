@@ -43,5 +43,9 @@ public class VillageService {
         villageRepository.deleteById(id);
         return "Village deleted successfully";
     }
+    public List<Village> getVillagesBySectorName(String sectorName) {
+    return villageRepository
+            .findBySectorNameIgnoreCaseOrderByVillageNameAsc(sectorName);
+}
 
 }
