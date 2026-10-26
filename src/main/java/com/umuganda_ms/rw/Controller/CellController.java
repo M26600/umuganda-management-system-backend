@@ -8,14 +8,14 @@ import com.umuganda_ms.rw.Service.CellService;
 import com.umuganda_ms.rw.domain.Cell;
 
 @RestController 
-@RequestMapping("/api/cell")
+@RequestMapping("/api/cells")
 public class CellController {
     private final CellService cellService;
     public CellController(CellService cellService){
         this.cellService = cellService;
     }
     @PostMapping("/save")
-    public ResponseEntity<String> saveCell(Cell cell){
+    public ResponseEntity<String> saveCell(@RequestBody Cell cell){
         String message = cellService.saveCell(cell);
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(message);
@@ -32,13 +32,13 @@ public class CellController {
             return ResponseEntity.ok(existingCell.get());
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body("The cell with that id is not found");
+            .body("The cell with that id does not exist");
         }
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateCell(@PathVariable UUID id, @RequestBody Cell updatedCell){
         String message = cellService.updateCell(id, updatedCell);
-        if(message.equals("The cell with that was not found")){
+        if(message.equals("The cell with that id does not exist")){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(message);
         }else{
@@ -48,7 +48,7 @@ public class CellController {
     @DeleteMapping ("/delete/{id}")
     public ResponseEntity<String> deleteCell(@PathVariable UUID id){
         String message = cellService.deleteCell(id);
-        if(message.equals("The cell with that id is not found")){
+        if(message.equals("The cell with that id does not exist")){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(message);
         }

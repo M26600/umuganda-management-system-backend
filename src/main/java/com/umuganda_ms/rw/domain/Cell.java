@@ -9,11 +9,11 @@ public class Cell {
     @Id 
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private int cellNumber;
+    private Integer cellNumber;
     private String name;
     public Cell() {
     }
-    public Cell(int cellNumber, String name) {
+    public Cell(Integer cellNumber, String name) {
         this.cellNumber = cellNumber;
         this.name = name;
     }
@@ -23,10 +23,10 @@ public class Cell {
     public void setId(UUID id) {
         this.id = id;
     }
-    public int getCellNumber() {
+    public Integer getCellNumber() {
         return cellNumber;
     }
-    public void setCellNumber(int cellNumber) {
+    public void setCellNumber(Integer  cellNumber) {
         this.cellNumber = cellNumber;
     }
     public String getName(){

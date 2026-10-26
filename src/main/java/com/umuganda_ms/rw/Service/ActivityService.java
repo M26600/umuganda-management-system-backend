@@ -21,7 +21,7 @@ public class ActivityService {
     }
     public String saveActivity(Activity activity){
         activityRepository.save(activity);
-        return "Activity saved Successfully";
+        return "Activity saved successfully";
     }
     public String updateActivity(UUID id, Activity updatedActivity){
         Optional<Activity> existingActivity = activityRepository.findById(id);
@@ -41,10 +41,10 @@ public class ActivityService {
     public String deleteActivity(UUID id){
         Optional<Activity> existingActivity = activityRepository.findById(id);
         if(existingActivity.isEmpty()){
-            return "The activity does not exist.";
+            return "The activity with that id does not exist";
         }
         activityRepository.deleteById(id);
-        return "Activity deleted successfully!";
+        return "Activity deleted successfully";
     }
     
     
