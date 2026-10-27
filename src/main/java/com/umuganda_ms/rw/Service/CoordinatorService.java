@@ -98,4 +98,7 @@ public class CoordinatorService {
         coordinatorRepository.deleteById(id);
         return "Coordinator deleted successfully";
     }
+    public List<Coordinator> getCoordinatorsByActivityType(String name){
+        return coordinatorRepository.findByActivityTypeName(name);
+    }
 }

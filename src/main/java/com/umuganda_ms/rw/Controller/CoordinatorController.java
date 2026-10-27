@@ -55,4 +55,11 @@ public class CoordinatorController {
             return ResponseEntity.ok(message);
         }
     }
+    @GetMapping("/by-activity-type")
+    public ResponseEntity<List<Coordinator>> getCoordinatorsByActivityType(
+        @RequestParam String name
+    ){
+        List<Coordinator> coordinators = coordinatorService.getCoordinatorsByActivityType(name);
+        return ResponseEntity.ok(coordinators);
+    }
 }
