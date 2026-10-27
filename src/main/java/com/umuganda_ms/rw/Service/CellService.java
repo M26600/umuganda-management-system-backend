@@ -41,4 +41,7 @@ public class CellService {
         cellRepository.deleteById(id);
         return "Cell was deleted successfully";
     }
+    public List<Cell> getFreeCells() {
+    return cellRepository.findFreeCells();
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import com.umuganda_ms.rw.Service.CellService;
 import com.umuganda_ms.rw.domain.Cell;
 
+
 @RestController 
 @RequestMapping("/api/cells")
 public class CellController {
@@ -56,5 +57,10 @@ public class CellController {
             return ResponseEntity.ok(message);
         }
     }
+    @GetMapping("/free")
+    public ResponseEntity<List<Cell>> getFreeCells() {
+    List<Cell> cells = cellService.getFreeCells();
+    return ResponseEntity.ok(cells);
+}
 
 }
