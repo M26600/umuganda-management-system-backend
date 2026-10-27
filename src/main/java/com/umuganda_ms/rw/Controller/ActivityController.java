@@ -1,6 +1,7 @@
 package com.umuganda_ms.rw.Controller;
 
 import java.util.*;
+import java.time.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,5 +68,13 @@ public class ActivityController {
         List<Activity> activities = activityService.getActivityByStatus(status);
         return ResponseEntity.ok(activities);
     }
+    @GetMapping("/between")
+    public ResponseEntity<List<Activity>> getActivitiesBetween(@RequestParam String start, 
+        @RequestParam String end){
+            LocalDate startDate = LocalDate.parse(start);
+            LocalDate endDate = LocalDate.parse(end);
+            List<Activity> activities = activityService.getActivitiesBetween(startDate, endDate);
+            return ResponseEntity.ok(activities);
+        }
 
 }

@@ -1,5 +1,6 @@
 package com.umuganda_ms.rw.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.stereotype.*;
 
@@ -51,6 +52,9 @@ public class ActivityService {
     }
     public List<Activity> getActivityByStatus(ActivityStatus status){
         return activityRepository.findByStatusOrderByActivityDateAsc(status);
+    }
+    public List<Activity> getActivitiesBetween(LocalDate start, LocalDate end){
+        return activityRepository.findByActivityDateBetweenOrderByActivityDateAsc(start, end);
     }
     
     
