@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.umuganda_ms.rw.domain.Activity;
 import com.umuganda_ms.rw.Service.ActivityService;
+import com.umuganda_ms.rw.domain.ActivityStatus;
 
 @RestController 
 @RequestMapping("/api/activities")
@@ -60,6 +61,11 @@ public class ActivityController {
         } else{
             return ResponseEntity.ok(message);
         }
+    }
+    @GetMapping ("/by-status")
+    public ResponseEntity<List<Activity>> getActivityByStatus(@RequestParam ActivityStatus status){
+        List<Activity> activities = activityService.getActivityByStatus(status);
+        return ResponseEntity.ok(activities);
     }
 
 }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.*;
 import com.umuganda_ms.rw.Repository.ActivityRepository;
 import com.umuganda_ms.rw.domain.Activity;
 
+import com.umuganda_ms.rw.domain.ActivityStatus;
+
+
 @Service
 public class ActivityService {
     private final ActivityRepository activityRepository;
@@ -45,6 +48,9 @@ public class ActivityService {
         }
         activityRepository.deleteById(id);
         return "Activity deleted successfully";
+    }
+    public List<Activity> getActivityByStatus(ActivityStatus status){
+        return activityRepository.findByStatusOrderByActivityDateAsc(status);
     }
     
     
