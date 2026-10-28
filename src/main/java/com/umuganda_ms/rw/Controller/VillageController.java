@@ -7,13 +7,15 @@ import java.util.*;
 
 import com.umuganda_ms.rw.Service.VillageService;
 import com.umuganda_ms.rw.domain.Village;
-
+import com.umuganda_ms.rw.Repository.CoordinatorRepository;
 @RestController 
 @RequestMapping ("/api/villages")
 public class VillageController {
     private final VillageService villageService;
-    public VillageController(VillageService villageService){
+    private final CoordinatorRepository coordinatorRepository;
+    public VillageController(VillageService villageService, CoordinatorRepository coordinatorRepository){
         this.villageService = villageService;
+        this.coordinatorRepository = coordinatorRepository;
     }
     @PostMapping ("/save")
     public ResponseEntity<String> saveVillage(@RequestBody Village village){
@@ -66,4 +68,15 @@ public ResponseEntity<List<Village>> getVillagesBySectorName(
 
     return ResponseEntity.ok(villages);
 }
+@GetMapping("/of-coordinator/{coordinatorId}")
+public ResponseEntity<?> getVillagesOfCoordinator(
+    @PathVariable UUID coordinatorId){
+        if(!coordinatorRepository.existsById(coordinatorId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body("The coordinator with that id does not exist");
+        }else {
+            List<Village> villages = villageService.getVillagesOfCoordinator(coordinatorId);
+            return ResponseEntity.ok(villages);
+        }
+    }
 }

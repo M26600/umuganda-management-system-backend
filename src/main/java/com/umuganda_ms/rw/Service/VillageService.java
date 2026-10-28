@@ -46,6 +46,10 @@ public class VillageService {
     public List<Village> getVillagesBySectorName(String sectorName) {
     return villageRepository
             .findBySectorNameIgnoreCaseOrderByVillageNameAsc(sectorName);
-}
+        }
+    public List<Village> getVillagesOfCoordinator(UUID coordinatorId){
+        return villageRepository.findVillagesByCoordinatorId(coordinatorId);
+    }
+
 
 }
