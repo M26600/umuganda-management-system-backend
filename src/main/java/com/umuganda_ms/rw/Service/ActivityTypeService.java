@@ -25,7 +25,7 @@ public class ActivityTypeService {
     public String updateActivityType(UUID id, ActivityType updatedActivityType){
         Optional<ActivityType> existingActivityType = activityTypeRepository.findById(id);
         if(existingActivityType.isEmpty()){
-            return "Activity Type with that id was not found!";
+            return "The activity type with that id does not exist";
         }
         ActivityType activityType = existingActivityType.get();
         activityType.setName(updatedActivityType.getName());
@@ -35,9 +35,12 @@ public class ActivityTypeService {
     public String deleteActivityType(UUID id){
         Optional<ActivityType> existingActivityType = activityTypeRepository.findById(id);
         if(existingActivityType.isEmpty()){
-            return "Activity Type with that id was not found!";
+            return "The activity type with that id does not exist";
         }
         activityTypeRepository.deleteById(id);
         return "Activity Type is deleted successfully!";
+    }
+    public List<ActivityType> getUnusedActivityTypes(){
+        return activityTypeRepository.findnusedActivityTypes();
     }
 }

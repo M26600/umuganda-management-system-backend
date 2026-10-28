@@ -59,6 +59,11 @@ public class ActivityTypeController {
             return ResponseEntity.ok(message);
         }
     }
+    @GetMapping("/unused")
+    public ResponseEntity<List<ActivityType>> getUnusedActivityTypes(){
+        List<ActivityType> activityTypes = activityTypeService.getUnusedActivityTypes();
+        return ResponseEntity.ok(activityTypes);
+    }
 
 
 }
