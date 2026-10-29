@@ -4,7 +4,7 @@ import java.util.*;
 import java.time.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import com.umuganda_ms.rw.domain.Activity;
 import com.umuganda_ms.rw.Service.ActivityService;
 import com.umuganda_ms.rw.domain.ActivityStatus;
@@ -84,5 +84,22 @@ public class ActivityController {
             List<Activity> activities = activityService.getActivitiesBetween(startDate, endDate);
             return ResponseEntity.ok(activities);
         }
+    @PatchMapping("/{id}/status")
+public ResponseEntity<String> updateActivityStatus(
+        @PathVariable UUID id,
+        @RequestParam ActivityStatus status) {
+
+    String message = activityService.updateActivityStatus(id, status);
+
+    if (message.equals("The activity with that id does not exist")) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(message);
+    } else if (message.startsWith("Cannot change status from")) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(message);
+    } else {
+        return ResponseEntity.ok(message);
+    }
+}
 
 }
