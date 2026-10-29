@@ -101,4 +101,25 @@ public class CoordinatorService {
     public List<Coordinator> getCoordinatorsByActivityType(String name){
         return coordinatorRepository.findByActivityTypeName(name);
     }
+    // D3: Add an activity type to the coordinator
+    public String addActivityType(UUID coordinatorId, UUID activityTypeId){
+        Optional<Coordinator> coordinatorOptional = coordinatorRepository.findById(coordinatorId);
+
+        if(coordinatorOptional.isEmpty()){
+            return "The coordinator with that id does not exist";
+        }
+
+        Optional<ActivityType> activityTypeOptional = activityTypeRepository.findById(activityTypeId);
+        if(activityTypeOptional.isEmpty()){
+            return "That activity type does not exist";
+        }
+        Coordinator coordinator = coordinatorOptional.get();
+        ActivityType activityType = activityTypeOptional.get();
+        if(coordinator.getActivityTypes().contains(activityType)){
+            return "The coordinator already has that activity type";
+        }
+        coordinator.getActivityTypes().add(activityType);
+        coordinatorRepository.save(coordinator);
+        return "Activity type added to the coordinator";
+    }
 }

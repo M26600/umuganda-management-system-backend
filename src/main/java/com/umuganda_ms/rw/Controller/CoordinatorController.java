@@ -62,4 +62,17 @@ public class CoordinatorController {
         List<Coordinator> coordinators = coordinatorService.getCoordinatorsByActivityType(name);
         return ResponseEntity.ok(coordinators);
     }
+
+    //Contorller that goes with adding activity type to the coordinator
+    @PatchMapping ("/{coordinatorId}/activity-types/{activityTypeId}")
+    public ResponseEntity<String> addActivityType(@PathVariable UUID coordinatorId, @PathVariable UUID activityTypeId){
+        String message = coordinatorService.addActivityType(coordinatorId, activityTypeId);
+        if(message.equals("The coordinator with that id does not exist")||message.equals("That activity type does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND) .body(message);
+        }else if(message.equals("The coordinator already has that activity type")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }else{
+            return ResponseEntity.ok(message);
+        }
+    }
 }
