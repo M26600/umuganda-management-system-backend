@@ -24,6 +24,17 @@ public class ActivityService {
         return activityRepository.findById(id);
     }
     public String saveActivity(Activity activity){
+        if(activity.getActivityDate().isBefore(LocalDate.now())){
+            return "Activity date cannot be in the past";
+        }
+        if(activity.getCoordinator()!=null 
+    && activityRepository.existsByCoordinator_IdAndActivityDateAndStatusNot(
+        activity.getCoordinator().getId(),
+        activity.getActivityDate(),
+        ActivityStatus.POSTPONED)){
+            return "Coordinator already has an activity on that date";
+        }
+        activity.setStatus(ActivityStatus.PLANNED);
         activityRepository.save(activity);
         return "Activity saved successfully";
     }
@@ -56,6 +67,7 @@ public class ActivityService {
     public List<Activity> getActivitiesBetween(LocalDate start, LocalDate end){
         return activityRepository.findByActivityDateBetweenOrderByActivityDateAsc(start, end);
     }
+
     
     
 }

@@ -21,8 +21,16 @@ public class ActivityController {
     public ResponseEntity<String> saveActivity(
         @RequestBody Activity activity){
             String message = activityService.saveActivity(activity);
+            if(message.equals("Activity date cannot be in the past")){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(message);
+            }else if (message.equals("Coordinator already has an activity on that date")){
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(message);
+            }else{
             return ResponseEntity.status(HttpStatus.CREATED)
             .body(message);
+            }
         }
     @GetMapping("/all")
     public ResponseEntity<List<Activity>> getAllActivities(){

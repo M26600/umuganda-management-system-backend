@@ -12,4 +12,10 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID>{
 List<Activity> findByStatusOrderByActivityDateAsc(ActivityStatus status);
 List<Activity> findByActivityDateBetweenOrderByActivityDateAsc(
     LocalDate start, LocalDate end);
+//D1: Check for coordinator scheduling the conflicts
+boolean existsByCoordinator_IdAndActivityDateAndStatusNot(
+    UUID coordinatorId,
+    LocalDate activityDate,
+    ActivityStatus status
+);
 }
