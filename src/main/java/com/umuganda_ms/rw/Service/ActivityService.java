@@ -9,12 +9,19 @@ import com.umuganda_ms.rw.Repository.ActivityRepository;
 import com.umuganda_ms.rw.domain.Activity;
 
 import com.umuganda_ms.rw.domain.ActivityStatus;
+import com.umuganda_ms.rw.domain.ActivityReport;
+import com.umuganda_ms.rw.Repository.ActivityReportRepository;
+
 
 
 @Service
 public class ActivityService {
     private final ActivityRepository activityRepository;
-    public ActivityService(ActivityRepository activityRepository){
+    private final ActivityReportRepository activityReportRepository;
+    public ActivityService(ActivityRepository activityRepository,
+        ActivityReportRepository activityReportRepository
+    ){
+        this.activityReportRepository = activityReportRepository;
         this.activityRepository = activityRepository;
     }
     public List<Activity> getAllActivities(){
@@ -96,6 +103,25 @@ public class ActivityService {
 
     return "Activity status updated successfully";
 }
+public String saveActivityReport(UUID activityId, ActivityReport report) {
+
     
+    Optional<Activity> existingActivity =
+            activityRepository.findById(activityId);
+
+    if (existingActivity.isEmpty()) {
+        return "The activity with that id does not exist";
+    }
+
+    Activity activity = existingActivity.get();
+    
+    if (activity.getStatus() != ActivityStatus.ACCOMPLISHED) {
+        return "Activity reports are only for ACCOMPLISHED activities";
+    }
+    report.setActivity(activity);
+    report.setSubmittedDate(LocalDate.now());
+    activityReportRepository.save(report);
+    return "Activity report saved successfully";
+}
     
 }
