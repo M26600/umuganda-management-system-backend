@@ -75,4 +75,16 @@ public class CoordinatorController {
             return ResponseEntity.ok(message);
         }
     }
+    //D4: Move coordinator to another cell
+    @PatchMapping("/{coordinatorId}/cell")
+    public ResponseEntity<String> changeCoordinatorCell(
+        @PathVariable UUID coordinatorId,
+        @RequestParam int cellNumber){
+            String message = coordinatorService.changeCoordinatorCell(coordinatorId, cellNumber);
+            if(message.equals("The coordinator with that id does not exist")|| message.equals("The cell with that cellNumber does not exist")){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+            }else{
+                return ResponseEntity.ok(message);
+            }
+        }
 }

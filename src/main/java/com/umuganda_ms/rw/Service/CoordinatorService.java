@@ -122,4 +122,30 @@ public class CoordinatorService {
         coordinatorRepository.save(coordinator);
         return "Activity type added to the coordinator";
     }
+
+    //D4 moving coordinator to another cell
+    public String changeCoordinatorCell(UUID coordinatorId, int cellNumber){
+        Optional<Coordinator> coordinatorOptional = coordinatorRepository.findById(coordinatorId);
+        if(coordinatorOptional.isEmpty()){
+            return "The coordinator with that id does not exist";
+        }
+        Optional<Cell> cellOptional = cellRepository.findByCellNumber(cellNumber);
+        if(cellOptional.isEmpty()){
+            return "The cell with that cellNumber does not exist";
+        }
+        Coordinator coordinator = coordinatorOptional.get();
+        Cell newCell = cellOptional.get();
+        if(coordinator.getCell() != null &&
+        coordinator.getCell().getId().equals(newCell.getId())){
+            return "Cell changed successfully";
+        }
+        if (coordinatorRepository.existsByCell(newCell)){
+            return "That cell is taken by another coordinator";
+        }
+        coordinator.setCell(newCell);
+        coordinatorRepository.save(coordinator);
+        return "Cell changed successfully";
+    
+    }
+
 }
