@@ -7,7 +7,7 @@ import org.springframework.stereotype.*;
 
 import com.umuganda_ms.rw.Repository.ActivityRepository;
 import com.umuganda_ms.rw.domain.Activity;
-
+import org.springframework.transaction.annotation.Transactional;
 import com.umuganda_ms.rw.domain.ActivityStatus;
 import com.umuganda_ms.rw.domain.ActivityReport;
 import com.umuganda_ms.rw.Repository.ActivityReportRepository;
@@ -174,5 +174,19 @@ public Map<String, Long> countActivitiesByStatus() {
     }
 
     return counts;
+}
+@Transactional
+public String cancelActivitiesForAbsentCoordinator(
+        UUID coordinatorId, LocalDate date) {
+
+    int cancelledCount =
+            activityRepository.cancelActivitiesForCoordinatorOnDate(
+                    coordinatorId,
+                    date,
+                    ActivityStatus.POSTPONED,
+                    ActivityStatus.ACCOMPLISHED
+            );
+
+    return cancelledCount + " activities cancelled";
 }
 }

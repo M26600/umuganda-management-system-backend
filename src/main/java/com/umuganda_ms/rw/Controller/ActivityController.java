@@ -111,4 +111,18 @@ public ResponseEntity<String> updateActivityStatus(
 public ResponseEntity<Map<String, Long>> countActivitiesByStatus() {
     return ResponseEntity.ok(activityService.countActivitiesByStatus());
 }
+
+@PatchMapping("/cancel-day")
+public ResponseEntity<String> cancelActivitiesForAbsentCoordinator(
+        @RequestParam UUID coordinatorId,
+        @RequestParam
+        @org.springframework.format.annotation.DateTimeFormat(
+                iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+        LocalDate date) {
+
+    String message = activityService
+            .cancelActivitiesForAbsentCoordinator(coordinatorId, date);
+
+    return ResponseEntity.ok(message);
+}
 }

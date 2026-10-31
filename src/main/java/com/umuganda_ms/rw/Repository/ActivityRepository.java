@@ -3,6 +3,8 @@ import java.util.*;
 import com.umuganda_ms.rw.domain.Activity;
 import com.umuganda_ms.rw.domain.ActivityStatus;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
+
 import java.time.LocalDate;
 
 
@@ -20,4 +22,17 @@ boolean existsByCoordinator_IdAndActivityDateAndStatusNot(
 );
 @Query("SELECT a.status, COUNT(a) FROM Activity a GROUP BY a.status")
 List<Object[]> countActivitiesByStatus();
+
+@Modifying
+@Query("UPDATE Activity a SET a.status = :newStatus " +
+       "WHERE a.coordinator.id = :coordinatorId " +
+       "AND a.activityDate = :date " +
+       "AND a.status <> :excludedStatus " +
+       "AND a.status <> :newStatus")
+int cancelActivitiesForCoordinatorOnDate(
+        @Param("coordinatorId") UUID coordinatorId,
+        @Param("date") LocalDate date,
+        @Param("newStatus") ActivityStatus newStatus,
+        @Param("excludedStatus") ActivityStatus excludedStatus
+);
 }
