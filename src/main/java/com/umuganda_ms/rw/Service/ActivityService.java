@@ -123,5 +123,10 @@ public String saveActivityReport(UUID activityId, ActivityReport report) {
     activityReportRepository.save(report);
     return "Activity report saved successfully";
 }
+
+public List<ActivityReport> getReportsByVillageCode(String villageCode) {
+    return activityReportRepository
+            .findByActivity_Village_VillageCodeOrderBySubmittedDateDesc(villageCode);
+}
     
 }

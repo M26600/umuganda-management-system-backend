@@ -1,5 +1,6 @@
 package com.umuganda_ms.rw.Controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.*;
@@ -18,6 +19,7 @@ public class ActivityReportController {
         this.activityService = activityService;
     }
 
+    // E1: Save activity report
     @PostMapping("/save")
     public ResponseEntity<String> saveActivityReport(
             @RequestParam UUID activityId,
@@ -27,12 +29,21 @@ public class ActivityReportController {
 
         if (message.equals("The activity with that id does not exist")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-
         } else if (message.equals("Activity reports are only for ACCOMPLISHED activities")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
-
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body(message);
         }
+    }
+
+    // E2: Retrieve reports by village code
+    @GetMapping("/village/{villageCode}")
+    public ResponseEntity<List<ActivityReport>> getReportsByVillageCode(
+            @PathVariable String villageCode) {
+
+        List<ActivityReport> reports =
+                activityService.getReportsByVillageCode(villageCode);
+
+        return ResponseEntity.ok(reports);
     }
 }

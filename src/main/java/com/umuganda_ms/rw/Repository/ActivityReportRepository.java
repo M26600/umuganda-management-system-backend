@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.umuganda_ms.rw.domain.ActivityReport;
 
 public interface ActivityReportRepository extends JpaRepository<ActivityReport, UUID>{
-
+List<ActivityReport> findByActivity_Village_VillageCodeOrderBySubmittedDateDesc(
+        String villageCode);
 }
