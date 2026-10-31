@@ -18,4 +18,6 @@ boolean existsByCoordinator_IdAndActivityDateAndStatusNot(
     LocalDate activityDate,
     ActivityStatus status
 );
+@Query("SELECT a.status, COUNT(a) FROM Activity a GROUP BY a.status")
+List<Object[]> countActivitiesByStatus();
 }

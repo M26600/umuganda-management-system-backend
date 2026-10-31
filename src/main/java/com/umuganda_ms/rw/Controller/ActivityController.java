@@ -107,5 +107,8 @@ public ResponseEntity<String> updateActivityStatus(
         return ResponseEntity.ok(message);
     }
 }
-
+@GetMapping("/count-by-status")
+public ResponseEntity<Map<String, Long>> countActivitiesByStatus() {
+    return ResponseEntity.ok(activityService.countActivitiesByStatus());
+}
 }

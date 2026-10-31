@@ -161,5 +161,18 @@ public boolean activityHasReports(Activity activity) {
 public List<ActivityReport> getAllActivityReports() {
     return activityReportRepository.findAll();
 }
-    
+public Map<String, Long> countActivitiesByStatus() {
+    List<Object[]> results = activityRepository.countActivitiesByStatus();
+
+    Map<String, Long> counts = new LinkedHashMap<>();
+
+    for (Object[] result : results) {
+        ActivityStatus status = (ActivityStatus) result[0];
+        Long count = (Long) result[1];
+
+        counts.put(status.name(), count);
+    }
+
+    return counts;
+}
 }
