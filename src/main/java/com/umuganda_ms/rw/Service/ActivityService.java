@@ -2,195 +2,148 @@ package com.umuganda_ms.rw.Service;
 
 import java.time.LocalDate;
 import java.util.*;
-import org.springframework.stereotype.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.umuganda_ms.rw.Repository.ActivityReportRepository;
 import com.umuganda_ms.rw.Repository.ActivityRepository;
 import com.umuganda_ms.rw.domain.Activity;
-import org.springframework.transaction.annotation.Transactional;
 import com.umuganda_ms.rw.domain.ActivityStatus;
-import com.umuganda_ms.rw.domain.ActivityReport;
-import org.springframework.data.domain.*;
-import com.umuganda_ms.rw.Repository.ActivityReportRepository;
-
-
 
 @Service
 public class ActivityService {
+
     private final ActivityRepository activityRepository;
     private final ActivityReportRepository activityReportRepository;
+
     public ActivityService(ActivityRepository activityRepository,
-        ActivityReportRepository activityReportRepository
-    ){
-        this.activityReportRepository = activityReportRepository;
+                           ActivityReportRepository activityReportRepository) {
         this.activityRepository = activityRepository;
+        this.activityReportRepository = activityReportRepository;
     }
-    public List<Activity> getAllActivities(){
+
+    public List<Activity> getAllActivities() {
         return activityRepository.findAll();
     }
-    public Optional<Activity> getActivityById(UUID id){
+
+    public Optional<Activity> getActivityById(UUID id) {
         return activityRepository.findById(id);
     }
-    public String saveActivity(Activity activity){
-        if(activity.getActivityDate().isBefore(LocalDate.now())){
+
+    // A2 & D1: Safe saving of activity
+    public String saveActivity(Activity activity) {
+        if (activity.getActivityDate() == null || activity.getActivityDate().isBefore(LocalDate.now())) {
             return "Activity date cannot be in the past";
         }
-        if(activity.getCoordinator()!=null 
-    && activityRepository.existsByCoordinator_IdAndActivityDateAndStatusNot(
-        activity.getCoordinator().getId(),
-        activity.getActivityDate(),
-        ActivityStatus.POSTPONED)){
-            return "Coordinator already has an activity on that date";
+
+        if (activity.getCoordinator() != null && activity.getCoordinator().getId() != null) {
+            boolean conflict = activityRepository.existsByCoordinator_IdAndActivityDateAndStatusNot(
+                    activity.getCoordinator().getId(),
+                    activity.getActivityDate(),
+                    ActivityStatus.POSTPONED
+            );
+            if (conflict) {
+                return "Coordinator already has an activity on that date";
+            }
         }
+
         activity.setStatus(ActivityStatus.PLANNED);
         activityRepository.save(activity);
         return "Activity saved successfully";
     }
-    public String updateActivity(UUID id, Activity updatedActivity){
+
+    // A2 & D2: General PUT update - MUST NOT change the status (status changes only via D2 PATCH)
+    public String updateActivity(UUID id, Activity updatedActivity) {
         Optional<Activity> existingActivity = activityRepository.findById(id);
-        if(existingActivity.isEmpty()){
+        if (existingActivity.isEmpty()) {
             return "The activity with that id does not exist";
         }
+
         Activity activity = existingActivity.get();
         activity.setActivityDate(updatedActivity.getActivityDate());
         activity.setObjective(updatedActivity.getObjective());
         activity.setVillage(updatedActivity.getVillage());
         activity.setCoordinator(updatedActivity.getCoordinator());
-        activity.setStatus(updatedActivity.getStatus());
+        // Notice: do NOT update status here, per requirement D2
 
         activityRepository.save(activity);
         return "Activity updated successfully";
     }
+
+    // A2 & E3: Delete activity (protected by activity reports check)
     public String deleteActivity(UUID id) {
+        Optional<Activity> existingActivity = activityRepository.findById(id);
+        if (existingActivity.isEmpty()) {
+            return "The activity with that id does not exist";
+        }
 
-    Optional<Activity> existingActivity = activityRepository.findById(id);
+        Activity activity = existingActivity.get();
+        if (activityReportRepository.existsByActivity(activity)) {
+            return "That activity has activity reports, delete them first";
+        }
 
-    if (existingActivity.isEmpty()) {
-        return "The activity with that id does not exist";
+        activityRepository.deleteById(id);
+        return "Activity deleted successfully";
     }
 
-    Activity activity = existingActivity.get();
-
-    if (activityReportRepository.existsByActivity(activity)) {
-        return "That activity has activity reports, delete them first";
-    }
-
-    activityRepository.deleteById(id);
-
-    return "Activity deleted successfully";
-}
-    public List<Activity> getActivityByStatus(ActivityStatus status){
+    // B2: Activities by status
+    public List<Activity> getActivityByStatus(ActivityStatus status) {
         return activityRepository.findByStatusOrderByActivityDateAsc(status);
     }
-    public List<Activity> getActivitiesBetween(LocalDate start, LocalDate end){
+
+    // B3: Activities in a date range
+    public List<Activity> getActivitiesBetween(LocalDate start, LocalDate end) {
         return activityRepository.findByActivityDateBetweenOrderByActivityDateAsc(start, end);
     }
+
+    // D2: Status flow
     public String updateActivityStatus(UUID id, ActivityStatus newStatus) {
-    Optional<Activity> existingActivity = activityRepository.findById(id);
+        Optional<Activity> existingActivity = activityRepository.findById(id);
+        if (existingActivity.isEmpty()) {
+            return "The activity with that id does not exist";
+        }
 
-    if (existingActivity.isEmpty()) {
-        return "The activity with that id does not exist";
+        Activity activity = existingActivity.get();
+        ActivityStatus currentStatus = activity.getStatus();
+
+        boolean allowed =
+                (currentStatus == ActivityStatus.PLANNED &&
+                        (newStatus == ActivityStatus.ONGOING || newStatus == ActivityStatus.POSTPONED))
+                ||
+                (currentStatus == ActivityStatus.ONGOING &&
+                        (newStatus == ActivityStatus.ACCOMPLISHED || newStatus == ActivityStatus.POSTPONED));
+
+        if (!allowed) {
+            return "Cannot change status from " + currentStatus + " to " + newStatus;
+        }
+
+        activity.setStatus(newStatus);
+        activityRepository.save(activity);
+        return "Activity status updated successfully";
     }
 
-    Activity activity = existingActivity.get();
-    ActivityStatus currentStatus = activity.getStatus();
-
-    boolean allowed =
-        (currentStatus == ActivityStatus.PLANNED &&
-            (newStatus == ActivityStatus.ONGOING ||
-             newStatus == ActivityStatus.POSTPONED))
-        ||
-        (currentStatus == ActivityStatus.ONGOING &&
-            (newStatus == ActivityStatus.ACCOMPLISHED ||
-             newStatus == ActivityStatus.POSTPONED));
-
-    if (!allowed) {
-        return "Cannot change status from " + currentStatus
-                + " to " + newStatus;
+    // F1: Activities per status as List<Object[]>
+    public List<Object[]> getActivitiesStatsByStatus() {
+        return activityRepository.countActivitiesByStatus();
     }
 
-    activity.setStatus(newStatus);
-    activityRepository.save(activity);
-
-    return "Activity status updated successfully";
-}
-public String saveActivityReport(UUID activityId, ActivityReport report) {
-
-    
-    Optional<Activity> existingActivity =
-            activityRepository.findById(activityId);
-
-    if (existingActivity.isEmpty()) {
-        return "The activity with that id does not exist";
+    // F2: Coordinator is absent
+    @Transactional
+    public String cancelActivitiesForAbsentCoordinator(UUID coordinatorId, LocalDate date) {
+        int cancelledCount = activityRepository.cancelActivitiesForCoordinatorOnDate(
+                coordinatorId,
+                date,
+                ActivityStatus.POSTPONED,
+                ActivityStatus.ACCOMPLISHED
+        );
+        return cancelledCount + " activities cancelled";
     }
 
-    Activity activity = existingActivity.get();
-    
-    if (activity.getStatus() != ActivityStatus.ACCOMPLISHED) {
-        return "Activity reports are only for ACCOMPLISHED activities";
+    // Bonus: Activities page by page
+    public Page<Activity> getActivitiesPage(Pageable pageable) {
+        return activityRepository.findAll(pageable);
     }
-    report.setActivity(activity);
-    report.setSubmittedDate(LocalDate.now());
-    activityReportRepository.save(report);
-    return "Activity report saved successfully";
-}
-
-public List<ActivityReport> getReportsByVillageCode(String villageCode) {
-    return activityReportRepository
-            .findByActivity_Village_VillageCodeOrderBySubmittedDateDesc(villageCode);
-}
-
-public String deleteActivityReport(UUID id) {
-
-    Optional<ActivityReport> existingReport =
-            activityReportRepository.findById(id);
-
-    if (existingReport.isEmpty()) {
-        return "The activity report with that id does not exist";
-    }
-
-    activityReportRepository.deleteById(id);
-
-    return "Activity report deleted successfully";
-}
-
-public boolean activityHasReports(Activity activity) {
-    return activityReportRepository.existsByActivity(activity);
-}
-
-
-public List<ActivityReport> getAllActivityReports() {
-    return activityReportRepository.findAll();
-}
-public Map<String, Long> countActivitiesByStatus() {
-    List<Object[]> results = activityRepository.countActivitiesByStatus();
-
-    Map<String, Long> counts = new LinkedHashMap<>();
-
-    for (Object[] result : results) {
-        ActivityStatus status = (ActivityStatus) result[0];
-        Long count = (Long) result[1];
-
-        counts.put(status.name(), count);
-    }
-
-    return counts;
-}
-@Transactional
-public String cancelActivitiesForAbsentCoordinator(
-        UUID coordinatorId, LocalDate date) {
-
-    int cancelledCount =
-            activityRepository.cancelActivitiesForCoordinatorOnDate(
-                    coordinatorId,
-                    date,
-                    ActivityStatus.POSTPONED,
-                    ActivityStatus.ACCOMPLISHED
-            );
-
-    return cancelledCount + " activities cancelled";
-}
-public Page<Activity> getActivitiesPage(Pageable pageable) {
-    return activityRepository.findAll(pageable);
-}
 }

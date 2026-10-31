@@ -3,29 +3,30 @@ package com.umuganda_ms.rw.Controller;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.umuganda_ms.rw.Service.ActivityService;
+import com.umuganda_ms.rw.Service.ActivityReportService;
 import com.umuganda_ms.rw.domain.ActivityReport;
 
 @RestController
 @RequestMapping("/api/activity-reports")
 public class ActivityReportController {
 
-    private final ActivityService activityService;
+    private final ActivityReportService activityReportService;
 
-    public ActivityReportController(ActivityService activityService) {
-        this.activityService = activityService;
+    public ActivityReportController(ActivityReportService activityReportService) {
+        this.activityReportService = activityReportService;
     }
 
-    // E1
+    // E1: Write an activity report
     @PostMapping("/save")
     public ResponseEntity<String> saveActivityReport(
             @RequestParam UUID activityId,
             @RequestBody ActivityReport report) {
 
-        String message = activityService.saveActivityReport(activityId, report);
+        String message = activityReportService.saveActivityReport(activityId, report);
 
         if (message.equals("The activity with that id does not exist")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
@@ -36,36 +37,33 @@ public class ActivityReportController {
         }
     }
 
-
+    // E2: Activity report history of a village
     @GetMapping("/village/{villageCode}")
     public ResponseEntity<List<ActivityReport>> getReportsByVillageCode(
             @PathVariable String villageCode) {
 
         List<ActivityReport> reports =
-                activityService.getReportsByVillageCode(villageCode);
+                activityReportService.getReportsByVillageCode(villageCode);
 
         return ResponseEntity.ok(reports);
     }
 
-@DeleteMapping("/delete/{id}")
-public ResponseEntity<String> deleteActivityReport(
-        @PathVariable UUID id) {
+    // E3: Delete activity report
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteActivityReport(@PathVariable UUID id) {
 
-    String message = activityService.deleteActivityReport(id);
+        String message = activityReportService.deleteActivityReport(id);
 
-    if (message.equals("The activity report with that id does not exist")) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        if (message.equals("The activity report with that id does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+
+        return ResponseEntity.ok(message);
     }
 
-    return ResponseEntity.ok(message);
-}
-
-@GetMapping("/all")
-public ResponseEntity<List<ActivityReport>> getAllActivityReports() {
-
-    List<ActivityReport> reports =
-            activityService.getAllActivityReports();
-
-    return ResponseEntity.ok(reports);
-}
+    @GetMapping("/all")
+    public ResponseEntity<List<ActivityReport>> getAllActivityReports() {
+        List<ActivityReport> reports = activityReportService.getAllActivityReports();
+        return ResponseEntity.ok(reports);
+    }
 }
