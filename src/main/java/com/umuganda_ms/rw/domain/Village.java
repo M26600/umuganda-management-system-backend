@@ -1,7 +1,6 @@
 package com.umuganda_ms.rw.domain;
 
 import jakarta.persistence.*;
-
 import java.util.*;
 
 @Entity 

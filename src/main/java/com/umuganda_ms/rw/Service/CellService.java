@@ -1,30 +1,37 @@
 package com.umuganda_ms.rw.Service;
 
-
 import java.util.*;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Service;
 import com.umuganda_ms.rw.Repository.CellRepository;
 import com.umuganda_ms.rw.domain.Cell;
 
 @Service
 public class CellService {
+
     private final CellRepository cellRepository;
-    public CellService(CellRepository cellRepository){
+
+    public CellService(CellRepository cellRepository) {
         this.cellRepository = cellRepository;
     }
-    public List<Cell> getAllCells(){
+
+    public List<Cell> getAllCells() {
         return cellRepository.findAll();
     }
-    public Optional<Cell> getCellById(UUID id){
+
+    public Optional<Cell> getCellById(UUID id) {
         return cellRepository.findById(id);
     }
-    public String saveCell(Cell cell){
+
+    // A2: Save cell
+    public String saveCell(Cell cell) {
         cellRepository.save(cell);
         return "Cell saved successfully";
     }
-    public String updateCell(UUID id, Cell updatedCell){
+
+    // A2: Update cell
+    public String updateCell(UUID id, Cell updatedCell) {
         Optional<Cell> existingCell = cellRepository.findById(id);
-        if(existingCell.isEmpty()){
+        if (existingCell.isEmpty()) {
             return "The cell with that id does not exist";
         }
         Cell cell = existingCell.get();
@@ -33,15 +40,19 @@ public class CellService {
         cellRepository.save(cell);
         return "Cell updated successfully";
     }
-    public String deleteCell(UUID id){
+
+    // A2: Delete cell
+    public String deleteCell(UUID id) {
         Optional<Cell> existingCell = cellRepository.findById(id);
-        if(existingCell.isEmpty()){
+        if (existingCell.isEmpty()) {
             return "The cell with that id does not exist";
         }
         cellRepository.deleteById(id);
-        return "Cell was deleted successfully";
+        return "Cell deleted successfully";
     }
+
+    // C2: Free cells
     public List<Cell> getFreeCells() {
-    return cellRepository.findFreeCells();
+        return cellRepository.findFreeCells();
     }
 }
