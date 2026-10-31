@@ -10,6 +10,7 @@ import com.umuganda_ms.rw.domain.Activity;
 import org.springframework.transaction.annotation.Transactional;
 import com.umuganda_ms.rw.domain.ActivityStatus;
 import com.umuganda_ms.rw.domain.ActivityReport;
+import org.springframework.data.domain.*;
 import com.umuganda_ms.rw.Repository.ActivityReportRepository;
 
 
@@ -188,5 +189,8 @@ public String cancelActivitiesForAbsentCoordinator(
             );
 
     return cancelledCount + " activities cancelled";
+}
+public Page<Activity> getActivitiesPage(Pageable pageable) {
+    return activityRepository.findAll(pageable);
 }
 }

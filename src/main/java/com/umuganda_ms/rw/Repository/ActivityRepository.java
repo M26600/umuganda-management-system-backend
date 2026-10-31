@@ -2,6 +2,9 @@ package com.umuganda_ms.rw.Repository;
 import java.util.*;
 import com.umuganda_ms.rw.domain.Activity;
 import com.umuganda_ms.rw.domain.ActivityStatus;
+
+import org.springframework.data.domain.*;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
@@ -39,4 +42,5 @@ int cancelActivitiesForCoordinatorOnDate(
 long countByActivityDate(LocalDate activityDate);
 long countByStatus(ActivityStatus status);
 
+Page<Activity> findAll(Pageable pageable);
 }

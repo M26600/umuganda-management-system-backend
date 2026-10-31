@@ -2,9 +2,10 @@ package com.umuganda_ms.rw.Controller;
 
 import java.util.*;
 import java.time.*;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.*;
 import com.umuganda_ms.rw.domain.Activity;
 import com.umuganda_ms.rw.Service.ActivityService;
 import com.umuganda_ms.rw.domain.ActivityStatus;
@@ -124,5 +125,26 @@ public ResponseEntity<String> cancelActivitiesForAbsentCoordinator(
             .cancelActivitiesForAbsentCoordinator(coordinatorId, date);
 
     return ResponseEntity.ok(message);
+}
+@GetMapping("/page")
+public ResponseEntity<Page<Activity>> getActivitiesPage(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
+        @RequestParam(defaultValue = "activityDate,desc") String sort) {
+
+    String[] sortParams = sort.split(",");
+
+    String sortField = sortParams[0];
+    Sort.Direction direction = Sort.Direction.fromString(sortParams[1]);
+
+    Pageable pageable = PageRequest.of(
+            page,
+            size,
+            Sort.by(direction, sortField)
+    );
+
+    Page<Activity> activities = activityService.getActivitiesPage(pageable);
+
+    return ResponseEntity.ok(activities);
 }
 }
