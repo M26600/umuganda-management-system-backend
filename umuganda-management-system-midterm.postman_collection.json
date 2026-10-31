@@ -1,0 +1,769 @@
+{
+	"info": {
+		"_postman_id": "7a35e7df-0361-43e5-8299-19ecfe76412e",
+		"name": "Umuganda Management System - Mid-Term Exam",
+		"description": "Postman Collection for AUCA Web Technology and Internet Mid-Term Examination.\nStudent: MUGENI Cynthia (ID: 26600).\nLecturer: Patrick DUSHIMIMANA.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Step 0 - Seed Data",
+			"item": [
+				{
+					"name": "Seed ActivityType 1 (Road Cleaning)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Road Cleaning\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activity-types/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activity-types", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed ActivityType 2 (Tree Planting)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tree Planting\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activity-types/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activity-types", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed ActivityType 3 (Terrace Building)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Terrace Building\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activity-types/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activity-types", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed ActivityType 4 (School Construction - Unused)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"School Construction\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/activity-types/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activity-types", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Cell 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cellNumber\": 1,\n    \"name\": \"Rukiri I\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/cells/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cells", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Cell 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cellNumber\": 2,\n    \"name\": \"Rukiri II\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/cells/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cells", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Cell 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cellNumber\": 3,\n    \"name\": \"Nyabisindu\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/cells/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cells", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Cell 4 (Free Cell)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cellNumber\": 4,\n    \"name\": \"Kibagabaga\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/cells/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cells", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Village 1 (Remera Sector - VIL-KGL-0214)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Amahoro\",\n    \"leaderName\": \"Jean Claude\",\n    \"villageCode\": \"VIL-KGL-0214\",\n    \"sectorName\": \"Remera\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Village 2 (Remera Sector)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Ubumwe\",\n    \"leaderName\": \"Marie Claire\",\n    \"villageCode\": \"VIL-KGL-0215\",\n    \"sectorName\": \"Remera\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Village 3 (Kimironko Sector)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Intwari\",\n    \"leaderName\": \"Patrick Mugabo\",\n    \"villageCode\": \"VIL-KGL-0301\",\n    \"sectorName\": \"Kimironko\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Village 4 (Gisozi Sector)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Rebero\",\n    \"leaderName\": \"Aline Umutoni\",\n    \"villageCode\": \"VIL-KGL-0402\",\n    \"sectorName\": \"Gisozi\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				},
+				{
+					"name": "Seed Village 5 (Kacyiru Sector)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Inyange\",\n    \"leaderName\": \"Eric Habimana\",\n    \"villageCode\": \"VIL-KGL-0503\",\n    \"sectorName\": \"Kacyiru\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "A2 - CRUD",
+			"item": [
+				{
+					"name": "A2: Save Village",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Rugando\",\n    \"leaderName\": \"Chantal Uwase\",\n    \"villageCode\": \"VIL-KGL-0999\",\n    \"sectorName\": \"Kimihurura\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/save",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "save"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get All Villages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "all"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get Village By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/{{villageId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "{{villageId}}"]
+						}
+					}
+				},
+				{
+					"name": "A2: Update Village",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"villageName\": \"Rugando Updated\",\n    \"leaderName\": \"Chantal Uwase\",\n    \"villageCode\": \"VIL-KGL-0999\",\n    \"sectorName\": \"Kimihurura\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/update/{{villageId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "update", "{{villageId}}"]
+						}
+					}
+				},
+				{
+					"name": "A2: Delete Village",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/villages/delete/{{villageId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "villages", "delete", "{{villageId}}"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get All Coordinators",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/coordinators/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "coordinators", "all"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get All Cells",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/cells/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "cells", "all"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get All Activity Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/activity-types/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activity-types", "all"]
+						}
+					}
+				},
+				{
+					"name": "A2: Get All Activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/all",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "activities", "all"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "B1 - Villages by Sector Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/villages/by-sector-name?sectorName=remera",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "villages", "by-sector-name"],
+					"query": [
+						{
+							"key": "sectorName",
+							"value": "remera"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "B2 - Activities by Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/by-status?status=PLANNED",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "by-status"],
+					"query": [
+						{
+							"key": "status",
+							"value": "PLANNED"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "B3 - Activities in Date Range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/between?start=2026-10-01&end=2026-11-30",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "between"],
+					"query": [
+						{
+							"key": "start",
+							"value": "2026-10-01"
+						},
+						{
+							"key": "end",
+							"value": "2026-11-30"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "C1 - Coordinators by Activity Type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/coordinators/by-activity-type?name=tree",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "coordinators", "by-activity-type"],
+					"query": [
+						{
+							"key": "name",
+							"value": "tree"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "C2 - Free Cells",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/cells/free",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "cells", "free"]
+				}
+			}
+		},
+		{
+			"name": "C3 - Activity Types Nobody Holds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activity-types/unused",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activity-types", "unused"]
+				}
+			}
+		},
+		{
+			"name": "C4 - Villages of a Coordinator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/villages/of-coordinator/{{coordinatorId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "villages", "of-coordinator", "{{coordinatorId}}"]
+				}
+			}
+		},
+		{
+			"name": "D1 - Safe Saving (Activity Save)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"activityDate\": \"2026-11-28\",\n    \"objective\": \"Plant 500 trees in Remera\",\n    \"village\": {\n        \"id\": \"{{villageId}}\"\n    },\n    \"coordinator\": {\n        \"id\": \"{{coordinatorId}}\"\n    },\n    \"status\": \"ACCOMPLISHED\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/save",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "save"]
+				}
+			}
+		},
+		{
+			"name": "D2 - Status Flow",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/{{activityId}}/status?status=ONGOING",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "{{activityId}}", "status"],
+					"query": [
+						{
+							"key": "status",
+							"value": "ONGOING"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "D3 - Add Activity Type to Coordinator",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/coordinators/{{coordinatorId}}/activity-types/{{activityTypeId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "coordinators", "{{coordinatorId}}", "activity-types", "{{activityTypeId}}"]
+				}
+			}
+		},
+		{
+			"name": "D4 - Move Coordinator to Another Cell",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/coordinators/{{coordinatorId}}/cell?cellNumber=4",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "coordinators", "{{coordinatorId}}", "cell"],
+					"query": [
+						{
+							"key": "cellNumber",
+							"value": "4"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "E1 - Write an Activity Report",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"workDone\": \"Road cleaned\",\n    \"remarks\": \"Two kilometres of drainage cleared\",\n    \"attendance\": 134\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/activity-reports/save?activityId={{activityId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activity-reports", "save"],
+					"query": [
+						{
+							"key": "activityId",
+							"value": "{{activityId}}"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "E2 - Activity Report History of a Village",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activity-reports/village/{{villageCode}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activity-reports", "village", "{{villageCode}}"]
+				}
+			}
+		},
+		{
+			"name": "E3 - Delete and Protect (Delete Activity Report)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activity-reports/delete/{{reportId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activity-reports", "delete", "{{reportId}}"]
+				}
+			}
+		},
+		{
+			"name": "E3 - Delete Activity (Protected if reports exist)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/delete/{{activityId}}",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "delete", "{{activityId}}"]
+				}
+			}
+		},
+		{
+			"name": "F1 - Activities per Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/stats/by-status",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "stats", "by-status"]
+				}
+			}
+		},
+		{
+			"name": "F2 - Coordinator is Absent (Cancel Day)",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/cancel-day?coordinatorId={{coordinatorId}}&date=2026-10-20",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "cancel-day"],
+					"query": [
+						{
+							"key": "coordinatorId",
+							"value": "{{coordinatorId}}"
+						},
+						{
+							"key": "date",
+							"value": "2026-10-20"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Bonus - Dashboard Summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/dashboard/summary",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "dashboard", "summary"]
+				}
+			}
+		},
+		{
+			"name": "Bonus - Activities Page by Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/activities/page?page=0&size=5&sort=activityDate,desc",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "activities", "page"],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "sort",
+							"value": "activityDate,desc"
+						}
+					]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "villageCode",
+			"value": "VIL-KGL-0214"
+		},
+		{
+			"key": "villageId",
+			"value": "00000000-0000-0000-0000-000000000001"
+		},
+		{
+			"key": "coordinatorId",
+			"value": "00000000-0000-0000-0000-000000000002"
+		},
+		{
+			"key": "cellId",
+			"value": "00000000-0000-0000-0000-000000000003"
+		},
+		{
+			"key": "activityTypeId",
+			"value": "00000000-0000-0000-0000-000000000004"
+		},
+		{
+			"key": "activityId",
+			"value": "00000000-0000-0000-0000-000000000005"
+		},
+		{
+			"key": "reportId",
+			"value": "00000000-0000-0000-0000-000000000006"
+		}
+	]
+}
