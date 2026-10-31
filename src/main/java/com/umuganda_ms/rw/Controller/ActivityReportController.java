@@ -19,7 +19,7 @@ public class ActivityReportController {
         this.activityService = activityService;
     }
 
-    // E1: Save activity report
+    // E1
     @PostMapping("/save")
     public ResponseEntity<String> saveActivityReport(
             @RequestParam UUID activityId,
@@ -36,7 +36,7 @@ public class ActivityReportController {
         }
     }
 
-    // E2: Retrieve reports by village code
+
     @GetMapping("/village/{villageCode}")
     public ResponseEntity<List<ActivityReport>> getReportsByVillageCode(
             @PathVariable String villageCode) {
@@ -46,4 +46,26 @@ public class ActivityReportController {
 
         return ResponseEntity.ok(reports);
     }
+
+@DeleteMapping("/delete/{id}")
+public ResponseEntity<String> deleteActivityReport(
+        @PathVariable UUID id) {
+
+    String message = activityService.deleteActivityReport(id);
+
+    if (message.equals("The activity report with that id does not exist")) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
+    return ResponseEntity.ok(message);
+}
+
+@GetMapping("/all")
+public ResponseEntity<List<ActivityReport>> getAllActivityReports() {
+
+    List<ActivityReport> reports =
+            activityService.getAllActivityReports();
+
+    return ResponseEntity.ok(reports);
+}
 }

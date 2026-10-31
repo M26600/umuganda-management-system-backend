@@ -60,14 +60,24 @@ public class ActivityService {
         activityRepository.save(activity);
         return "Activity updated successfully";
     }
-    public String deleteActivity(UUID id){
-        Optional<Activity> existingActivity = activityRepository.findById(id);
-        if(existingActivity.isEmpty()){
-            return "The activity with that id does not exist";
-        }
-        activityRepository.deleteById(id);
-        return "Activity deleted successfully";
+    public String deleteActivity(UUID id) {
+
+    Optional<Activity> existingActivity = activityRepository.findById(id);
+
+    if (existingActivity.isEmpty()) {
+        return "The activity with that id does not exist";
     }
+
+    Activity activity = existingActivity.get();
+
+    if (activityReportRepository.existsByActivity(activity)) {
+        return "That activity has activity reports, delete them first";
+    }
+
+    activityRepository.deleteById(id);
+
+    return "Activity deleted successfully";
+}
     public List<Activity> getActivityByStatus(ActivityStatus status){
         return activityRepository.findByStatusOrderByActivityDateAsc(status);
     }
@@ -127,6 +137,29 @@ public String saveActivityReport(UUID activityId, ActivityReport report) {
 public List<ActivityReport> getReportsByVillageCode(String villageCode) {
     return activityReportRepository
             .findByActivity_Village_VillageCodeOrderBySubmittedDateDesc(villageCode);
+}
+
+public String deleteActivityReport(UUID id) {
+
+    Optional<ActivityReport> existingReport =
+            activityReportRepository.findById(id);
+
+    if (existingReport.isEmpty()) {
+        return "The activity report with that id does not exist";
+    }
+
+    activityReportRepository.deleteById(id);
+
+    return "Activity report deleted successfully";
+}
+
+public boolean activityHasReports(Activity activity) {
+    return activityReportRepository.existsByActivity(activity);
+}
+
+
+public List<ActivityReport> getAllActivityReports() {
+    return activityReportRepository.findAll();
 }
     
 }

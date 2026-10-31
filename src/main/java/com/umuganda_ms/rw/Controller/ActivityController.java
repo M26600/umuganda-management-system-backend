@@ -60,17 +60,23 @@ public class ActivityController {
                 return ResponseEntity.ok(message);
             }
         }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteActivity(@PathVariable UUID id){
-        String message = activityService.deleteActivity(id);
-        if(message.equals("The activity with that id does not exist")){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(message);
+  @DeleteMapping("/delete/{id}")
+public ResponseEntity<String> deleteActivity(@PathVariable UUID id) {
 
-        } else{
-            return ResponseEntity.ok(message);
-        }
+    String message = activityService.deleteActivity(id);
+
+    if (message.equals("The activity with that id does not exist")) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(message);
+
+    } else if (message.equals("That activity has activity reports, delete them first")) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(message);
+
+    } else {
+        return ResponseEntity.ok(message);
     }
+}
     @GetMapping ("/by-status")
     public ResponseEntity<List<Activity>> getActivityByStatus(@RequestParam ActivityStatus status){
         List<Activity> activities = activityService.getActivityByStatus(status);
