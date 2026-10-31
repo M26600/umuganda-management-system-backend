@@ -12,4 +12,6 @@ List <Village> findBySectorNameIgnoreCaseOrderByVillageNameAsc(String sectorName
 List<Village> findVillagesByCoordinatorId(
     @Param("coordinatorId") UUID coordinatorId);
 
+
+long count();
 }

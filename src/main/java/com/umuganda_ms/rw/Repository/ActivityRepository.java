@@ -35,4 +35,8 @@ int cancelActivitiesForCoordinatorOnDate(
         @Param("newStatus") ActivityStatus newStatus,
         @Param("excludedStatus") ActivityStatus excludedStatus
 );
+
+long countByActivityDate(LocalDate activityDate);
+long countByStatus(ActivityStatus status);
+
 }
