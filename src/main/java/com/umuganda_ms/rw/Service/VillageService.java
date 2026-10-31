@@ -1,30 +1,42 @@
 package com.umuganda_ms.rw.Service;
 
-
 import java.util.*;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Service;
+
+import com.umuganda_ms.rw.Repository.CoordinatorRepository;
 import com.umuganda_ms.rw.Repository.VillageRepository;
 import com.umuganda_ms.rw.domain.Village;
 
 @Service
 public class VillageService {
+
     private final VillageRepository villageRepository;
-    public VillageService(VillageRepository villageRepository){
+    private final CoordinatorRepository coordinatorRepository;
+
+    public VillageService(VillageRepository villageRepository,
+                          CoordinatorRepository coordinatorRepository) {
         this.villageRepository = villageRepository;
+        this.coordinatorRepository = coordinatorRepository;
     }
-    public List<Village> getAllVillages(){
+
+    public List<Village> getAllVillages() {
         return villageRepository.findAll();
     }
-    public Optional<Village> getVillageById(UUID id){
+
+    public Optional<Village> getVillageById(UUID id) {
         return villageRepository.findById(id);
     }
-    public String saveVillage(Village village){
+
+    // A2: Save village
+    public String saveVillage(Village village) {
         villageRepository.save(village);
         return "Village saved successfully";
     }
-    public String updateVillage(UUID id, Village updatedVillage){
+
+    // A2: Update village
+    public String updateVillage(UUID id, Village updatedVillage) {
         Optional<Village> existingVillage = villageRepository.findById(id);
-        if(existingVillage.isEmpty()){
+        if (existingVillage.isEmpty()) {
             return "The village with that id does not exist";
         }
         Village village = existingVillage.get();
@@ -35,21 +47,27 @@ public class VillageService {
         villageRepository.save(village);
         return "Village updated successfully";
     }
-    public String deleteVillage(UUID id){
+
+    // A2: Delete village
+    public String deleteVillage(UUID id) {
         Optional<Village> existingVillage = villageRepository.findById(id);
-        if(existingVillage.isEmpty()){
+        if (existingVillage.isEmpty()) {
             return "The village with that id does not exist";
         }
         villageRepository.deleteById(id);
         return "Village deleted successfully";
     }
+
+    // B1: Find villages by sectorName
     public List<Village> getVillagesBySectorName(String sectorName) {
-    return villageRepository
-            .findBySectorNameIgnoreCaseOrderByVillageNameAsc(sectorName);
-        }
-    public List<Village> getVillagesOfCoordinator(UUID coordinatorId){
-        return villageRepository.findVillagesByCoordinatorId(coordinatorId);
+        return villageRepository.findBySectorNameIgnoreCaseOrderByVillageNameAsc(sectorName);
     }
 
-
+    // C4: Villages of a coordinator
+    public Optional<List<Village>> getVillagesOfCoordinator(UUID coordinatorId) {
+        if (!coordinatorRepository.existsById(coordinatorId)) {
+            return Optional.empty();
+        }
+        return Optional.of(villageRepository.findVillagesByCoordinatorId(coordinatorId));
+    }
 }
