@@ -1,13 +1,63 @@
 {
   "info": {
-    "name": "Umuganda Management System - Midterm Examination",
-    "description": "AUCA INSY 8322 WEB TECHNOLOGY AND INTERNET | Student: MUGENI Cynthia | ID: 26600 | Project: Umuganda Management System. Set baseUrl to http://localhost:8080. Run requests in collection order. Run the query folders B and C before D and E mutations. A2 CRUD test folders run after C4 and before D1; they create temporary records, capture IDs from Get All, update them, and delete them without changing seed records. For E1-E3, run E1, then E2, then E3 Delete activity (409), then E3 Delete report (success). The collection assumes the original seed database described in the examination.",
+    "name": "Umuganda Management System — Midterm Verified API Tests",
+    "description": "Based on provided Spring Boot source and midterm paper. The existing seed records must already be in PostgreSQL. Run read-only tests freely; run mutations individually, observing prerequisites. HTTP assertions test the expected status/messages; they do not replace actual backend testing.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "missingId",
+      "value": "00000000-0000-0000-0000-000000000000",
+      "type": "string"
+    },
+    {
+      "key": "aliceId",
+      "value": "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4",
+      "type": "string"
+    },
+    {
+      "key": "cynthiaId",
+      "value": "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+      "type": "string"
+    },
+    {
+      "key": "patrickId",
+      "value": "491c8c64-8bcf-4a07-b890-de28b4f594a2",
+      "type": "string"
+    },
+    {
+      "key": "roadCleaningTypeId",
+      "value": "d7ef572d-f802-49bd-a53b-0cb26975cea2",
+      "type": "string"
+    },
+    {
+      "key": "kibagabagaAccomplishedId",
+      "value": "e4ff3d51-4713-442f-bc42-1695158521c2",
+      "type": "string"
+    },
+    {
+      "key": "kibagabagaPlannedId",
+      "value": "620713c8-789d-47dc-aa51-3c2bd0687c08",
+      "type": "string"
+    },
+    {
+      "key": "dec5TestDate",
+      "value": "2026-12-05",
+      "type": "string"
+    },
+    {
+      "key": "dec6TestDate",
+      "value": "2026-12-06",
+      "type": "string"
+    },
+    {
+      "key": "dec10TestDate",
+      "value": "2026-12-10",
       "type": "string"
     }
   ],
@@ -17,190 +67,176 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/villages/by-sector-name?sectorName=remera",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "villages",
-            "by-sector-name"
-          ],
-          "query": [
-            {
-              "key": "sectorName",
-              "value": "remera"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/villages/by-sector-name?sectorName=remera",
         "description": "Expected: 200 with Kabeza and Nyabisindu, sorted A-Z. Case insensitive."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"B1 - Villages by sector name: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "B2 - Activities by status",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/by-status?status=PLANNED",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "by-status"
-          ],
-          "query": [
-            {
-              "key": "status",
-              "value": "PLANNED"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/by-status?status=PLANNED",
         "description": "Expected: 200 activities with PLANNED status, ordered by date ASC. IDs: 0e592a16, c25004ef, 620713c8, d47342cf"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"B2 - Activities by status: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "B3 - Activities between dates",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/between?start=2026-10-01&end=2026-10-31",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "between"
-          ],
-          "query": [
-            {
-              "key": "start",
-              "value": "2026-10-01"
-            },
-            {
-              "key": "end",
-              "value": "2026-10-31"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/between?start=2026-10-01&end=2026-10-31",
         "description": "Expected: 200 activities in October 2026: 54c29ff3, 0e592a16, ba90e549, c25004ef, 648f7906"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"B3 - Activities between dates: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "C1 - Coordinators by activity type",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/by-activity-type?name=tree",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "by-activity-type"
-          ],
-          "query": [
-            {
-              "key": "name",
-              "value": "tree"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/coordinators/by-activity-type?name=tree",
         "description": "Expected: 200 with Cynthia Mugeni only (she holds Tree Planting)"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"C1 - Coordinators by activity type: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "C2 - Free cells",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/cells/free",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "cells",
-            "free"
-          ]
-        },
+        "url": "{{baseUrl}}/api/cells/free",
         "description": "Expected: 200 with Cell 4 (80d66eb5) - no coordinator assigned"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"C2 - Free cells: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "C3 - Unused activity types",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-types/unused",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activity-types",
-            "unused"
-          ]
-        },
+        "url": "{{baseUrl}}/api/activity-types/unused",
         "description": "Expected: 200 with School Construction (01b7c693) - nobody holds it"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"C3 - Unused activity types: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "C4 - Villages of coordinator (success)",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/villages/of-coordinator/60fd6b6c-b9c0-4802-bc95-9c6407e28bd4",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "villages",
-            "of-coordinator",
-            "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4"
-          ]
-        },
+        "url": "{{baseUrl}}/api/villages/of-coordinator/{{aliceId}}",
         "description": "Expected: 200 Alice's villages: Kabeza, Nyabisindu, Gatenga, Gisozi"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"C4 - Villages of coordinator (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "C4 - Villages of coordinator (404)",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/villages/of-coordinator/00000000-0000-0000-0000-000000000000",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "villages",
-            "of-coordinator",
-            "00000000-0000-0000-0000-000000000000"
-          ]
-        },
+        "url": "{{baseUrl}}/api/villages/of-coordinator/{{missingId}}",
         "description": "Expected: 404 'The coordinator with that id does not exist'"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"C4 - Villages of coordinator (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "A2 - CRUD Activity Types",
@@ -215,17 +251,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/save",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activity-types",
-                "save"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activity-types/save",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Community Health Awareness\"\n}",
@@ -237,24 +263,26 @@
             },
             "description": "Expected: 201 'Activity type saved successfully'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Save: HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity type saved successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activity Types - Get All",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activity-types",
-                "all"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activity-types/all",
             "description": "Expected: 200 with 5 activity types (4 seed records + this A2 test record). A test script stores its UUID in collection variable a2ActivityTypeId."
           },
           "response": [],
@@ -264,6 +292,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "pm.test(\"A2 - Activity Types - Get All: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
                   "const rows = pm.response.json();",
                   "const record = rows.find(x => x.name === \"Community Health Awareness\");",
                   "pm.test(\"A2 test activity type is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
@@ -278,32 +308,43 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/{{a2ActivityTypeId}}"
-            },
+            "url": "{{baseUrl}}/api/activity-types/{{a2ActivityTypeId}}",
             "description": "Expected: 200 with the A2 test activity type. Run the matching Get All request first to capture the ID."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Get by ID: HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activity Types - Get by ID (404)",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activity-types",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activity-types/{{missingId}}",
             "description": "Expected: 404 'The activity type with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Get by ID (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity type with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activity Types - Update",
@@ -315,9 +356,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/update/{{a2ActivityTypeId}}"
-            },
+            "url": "{{baseUrl}}/api/activity-types/update/{{a2ActivityTypeId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Community Health Awareness Updated\"\n}",
@@ -329,40 +368,63 @@
             },
             "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Update: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity type updated successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activity Types - Delete (success)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/delete/{{a2ActivityTypeId}}"
-            },
+            "url": "{{baseUrl}}/api/activity-types/delete/{{a2ActivityTypeId}}",
             "description": "Expected: 200 'Activity type deleted successfully'. Deletes only the temporary A2 test record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Delete (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity type deleted successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activity Types - Delete (404)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activity-types/delete/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activity-types",
-                "delete",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activity-types/delete/{{missingId}}",
             "description": "Expected: 404 'The activity type with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activity Types - Delete (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity type with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -379,17 +441,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/save",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "cells",
-                "save"
-              ]
-            },
+            "url": "{{baseUrl}}/api/cells/save",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"cellNumber\": 5,\n  \"name\": \"Cell 5\"\n}",
@@ -401,24 +453,26 @@
             },
             "description": "Expected: 201 'Cell saved successfully'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Save: HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cell saved successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Cells - Get All",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "cells",
-                "all"
-              ]
-            },
+            "url": "{{baseUrl}}/api/cells/all",
             "description": "Expected: 200 with 5 cells (4 seed records + this A2 test record). A test script stores its UUID in collection variable a2CellId."
           },
           "response": [],
@@ -428,6 +482,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "pm.test(\"A2 - Cells - Get All: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
                   "const rows = pm.response.json();",
                   "const record = rows.find(x => x.cellNumber === 5);",
                   "pm.test(\"A2 test cell is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
@@ -442,32 +498,43 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/{{a2CellId}}"
-            },
+            "url": "{{baseUrl}}/api/cells/{{a2CellId}}",
             "description": "Expected: 200 with the temporary Cell 5. Run the matching Get All request first to capture the ID."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Get by ID: HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Cells - Get by ID (404)",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "cells",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/cells/{{missingId}}",
             "description": "Expected: 404 'The cell with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Get by ID (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The cell with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Cells - Update",
@@ -479,9 +546,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/update/{{a2CellId}}"
-            },
+            "url": "{{baseUrl}}/api/cells/update/{{a2CellId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"cellNumber\": 55,\n  \"name\": \"Cell 5 Updated\"\n}",
@@ -493,40 +558,63 @@
             },
             "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Update: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cell updated successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Cells - Delete (success)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/delete/{{a2CellId}}"
-            },
+            "url": "{{baseUrl}}/api/cells/delete/{{a2CellId}}",
             "description": "Expected: 200 'Cell deleted successfully'. Deletes only the temporary cell."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Delete (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cell deleted successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Cells - Delete (404)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/cells/delete/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "cells",
-                "delete",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/cells/delete/{{missingId}}",
             "description": "Expected: 404 'The cell with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Cells - Delete (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The cell with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -543,17 +631,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/save",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "coordinators",
-                "save"
-              ]
-            },
+            "url": "{{baseUrl}}/api/coordinators/save",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788000010\",\n  \"cell\": null,\n  \"activityTypes\": []\n}",
@@ -565,24 +643,26 @@
             },
             "description": "Expected: 201 'Coordinator saved successfully'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Save: HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Coordinator saved successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Coordinators - Get All",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "coordinators",
-                "all"
-              ]
-            },
+            "url": "{{baseUrl}}/api/coordinators/all",
             "description": "Expected: 200 with 4 coordinators (3 seed records + this A2 test record). A test script stores its UUID in collection variable a2CoordinatorId."
           },
           "response": [],
@@ -592,6 +672,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "pm.test(\"A2 - Coordinators - Get All: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
                   "const rows = pm.response.json();",
                   "const record = rows.find(x => x.firstName === \"Jean\" && x.lastName === \"Habimana\");",
                   "pm.test(\"A2 test coordinator is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
@@ -606,32 +688,43 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/{{a2CoordinatorId}}"
-            },
+            "url": "{{baseUrl}}/api/coordinators/{{a2CoordinatorId}}",
             "description": "Expected: 200 with the temporary coordinator Jean Habimana. Run the matching Get All request first to capture the ID."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Get by ID: HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Coordinators - Get by ID (404)",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "coordinators",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/coordinators/{{missingId}}",
             "description": "Expected: 404 'The coordinator with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Get by ID (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The coordinator with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Coordinators - Update",
@@ -643,9 +736,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/update/{{a2CoordinatorId}}"
-            },
+            "url": "{{baseUrl}}/api/coordinators/update/{{a2CoordinatorId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"firstName\": \"Jean Updated\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788000099\",\n  \"cell\": null,\n  \"activityTypes\": []\n}",
@@ -657,40 +748,63 @@
             },
             "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Update: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Coordinator updated successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Coordinators - Delete (success)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/delete/{{a2CoordinatorId}}"
-            },
+            "url": "{{baseUrl}}/api/coordinators/delete/{{a2CoordinatorId}}",
             "description": "Expected: 200 'Coordinator deleted successfully'. Deletes only the temporary coordinator."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Delete (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Coordinator deleted successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Coordinators - Delete (404)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/coordinators/delete/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "coordinators",
-                "delete",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/coordinators/delete/{{missingId}}",
             "description": "Expected: 404 'The coordinator with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Coordinators - Delete (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The coordinator with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -707,17 +821,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/save",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "villages",
-                "save"
-              ]
-            },
+            "url": "{{baseUrl}}/api/villages/save",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"villageName\": \"Biryogo\",\n  \"leaderName\": \"Test Leader\",\n  \"villageCode\": \"VIL-TEST-9001\",\n  \"sectorName\": \"Nyarugenge\"\n}",
@@ -729,24 +833,26 @@
             },
             "description": "Expected: 201 'Village saved successfully'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Save: HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Village saved successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Villages - Get All",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "villages",
-                "all"
-              ]
-            },
+            "url": "{{baseUrl}}/api/villages/all",
             "description": "Expected: 200 with 6 villages (5 seed records + this A2 test record). A test script stores its UUID in collection variable a2VillageId."
           },
           "response": [],
@@ -756,6 +862,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "pm.test(\"A2 - Villages - Get All: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
                   "const rows = pm.response.json();",
                   "const record = rows.find(x => x.villageCode === \"VIL-TEST-9001\");",
                   "pm.test(\"A2 test village is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
@@ -770,32 +878,43 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/{{a2VillageId}}"
-            },
+            "url": "{{baseUrl}}/api/villages/{{a2VillageId}}",
             "description": "Expected: 200 with the temporary Biryogo village. Run the matching Get All request first to capture the ID."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Get by ID: HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Villages - Get by ID (404)",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "villages",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/villages/{{missingId}}",
             "description": "Expected: 404 'The village with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Get by ID (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The village with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Villages - Update",
@@ -807,9 +926,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/update/{{a2VillageId}}"
-            },
+            "url": "{{baseUrl}}/api/villages/update/{{a2VillageId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"villageName\": \"Biryogo Updated\",\n  \"leaderName\": \"Updated Test Leader\",\n  \"villageCode\": \"VIL-TEST-9001\",\n  \"sectorName\": \"Nyarugenge\"\n}",
@@ -821,40 +938,63 @@
             },
             "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Update: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Village updated successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Villages - Delete (success)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/delete/{{a2VillageId}}"
-            },
+            "url": "{{baseUrl}}/api/villages/delete/{{a2VillageId}}",
             "description": "Expected: 200 'Village deleted successfully'. Deletes only the temporary A2 test village."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Delete (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Village deleted successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Villages - Delete (404)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/villages/delete/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "villages",
-                "delete",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/villages/delete/{{missingId}}",
             "description": "Expected: 404 'The village with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Villages - Delete (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The village with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -871,17 +1011,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/save",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activities",
-                "save"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activities/save",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"activityDate\": \"2026-12-05\",\n  \"objective\": \"A2 CRUD test activity\",\n  \"village\": {\n    \"id\": \"6042466a-52d6-4f76-bec5-43489e9e0582\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  }\n}",
@@ -893,24 +1023,26 @@
             },
             "description": "Expected: 201 'Activity saved successfully'. Status forced to PLANNED."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Save: HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity saved successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activities - Get All",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/all",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activities",
-                "all"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activities/all",
             "description": "Expected: 200 with 12 activities (11 existing records + this temporary A2 test activity). This folder runs before D1 creates its additional activity. A test script stores its UUID in collection variable a2ActivityId."
           },
           "response": [],
@@ -920,6 +1052,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
+                  "pm.test(\"A2 - Activities - Get All: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
                   "const rows = pm.response.json();",
                   "const record = rows.find(x => x.objective === \"A2 CRUD test activity\");",
                   "pm.test(\"A2 test activity is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
@@ -934,32 +1068,43 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/{{a2ActivityId}}"
-            },
+            "url": "{{baseUrl}}/api/activities/{{a2ActivityId}}",
             "description": "Expected: 200 with the temporary A2 CRUD test activity. Run the matching Get All request first to capture the ID."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Get by ID: HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activities - Get by ID (404)",
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activities",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activities/{{missingId}}",
             "description": "Expected: 404 'The activity with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Get by ID (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activities - Update",
@@ -971,9 +1116,7 @@
                 "value": "application/json"
               }
             ],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/update/{{a2ActivityId}}"
-            },
+            "url": "{{baseUrl}}/api/activities/update/{{a2ActivityId}}",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"activityDate\": \"2026-12-06\",\n  \"objective\": \"A2 CRUD test activity updated\",\n  \"village\": {\n    \"id\": \"6042466a-52d6-4f76-bec5-43489e9e0582\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  }\n}",
@@ -985,40 +1128,63 @@
             },
             "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Update: HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity updated successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activities - Delete (success)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/delete/{{a2ActivityId}}"
-            },
+            "url": "{{baseUrl}}/api/activities/delete/{{a2ActivityId}}",
             "description": "Expected: 200 'Activity deleted successfully'. Deletes only the temporary A2 test activity; it has no reports."
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Delete (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity deleted successfully\"); });"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "A2 - Activities - Delete (404)",
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/activities/delete/00000000-0000-0000-0000-000000000000",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "activities",
-                "delete",
-                "00000000-0000-0000-0000-000000000000"
-              ]
-            },
+            "url": "{{baseUrl}}/api/activities/delete/{{missingId}}",
             "description": "Expected: 404 'The activity with that id does not exist'"
           },
-          "response": []
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"A2 - Activities - Delete (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Exact missing-ID message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity with that id does not exist\"); });"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -1032,17 +1198,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/save",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "save"
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/save",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"activityDate\": \"2026-12-10\",\n  \"objective\": \"D1 success test\",\n  \"village\": {\n    \"id\": \"ca4a646d-9e26-4091-a6ba-b2577e2fdc15\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  },\n  \"status\": \"ACCOMPLISHED\"\n}",
@@ -1052,9 +1208,21 @@
             }
           }
         },
-        "description": "Expected: 201 'Activity saved successfully'. Status forced to PLANNED regardless of body."
+        "description": "Expected: 201 'Activity saved successfully'. Status forced to PLANNED regardless of body.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D1 - Save activity (success): HTTP 201\", function () { pm.response.to.have.status(201); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity saved successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D1 - Past date (400)",
@@ -1066,17 +1234,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/save",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "save"
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/save",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"activityDate\": \"2026-10-01\",\n  \"objective\": \"Past date test\",\n  \"village\": {\n    \"id\": \"12e256bf-f029-4bb5-97be-ea27870cd0cd\"\n  },\n  \"coordinator\": {\n    \"id\": \"60fd6b6c-b9c0-4802-bc95-9c6407e28bd4\"\n  }\n}",
@@ -1086,9 +1244,21 @@
             }
           }
         },
-        "description": "Expected: 400 'Activity date cannot be in the past'"
+        "description": "Expected: 400 'Activity date cannot be in the past'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D1 - Past date (400): HTTP 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity date cannot be in the past\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D1 - Duplicate date (409)",
@@ -1100,17 +1270,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/save",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "save"
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/save",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"activityDate\": \"2026-11-25\",\n  \"objective\": \"Duplicate test\",\n  \"village\": {\n    \"id\": \"16231f4a-2648-4451-8829-410d3690240b\"\n  },\n  \"coordinator\": {\n    \"id\": \"491c8c64-8bcf-4a07-b890-de28b4f594a2\"\n  }\n}",
@@ -1120,264 +1280,241 @@
             }
           }
         },
-        "description": "Expected: 409 'Coordinator already has an activity on that date'. Patrick already has 620713c8 on 2026-11-25 (PLANNED)."
+        "description": "Expected: 409 'Coordinator already has an activity on that date'. Patrick already has 620713c8 on 2026-11-25 (PLANNED).\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D1 - Duplicate date (409): HTTP 409\", function () { pm.response.to.have.status(409); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Coordinator already has an activity on that date\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D2 - PLANNED to ONGOING (success)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/0e592a16-2e16-40c9-8aac-66ebd32cd722/status?status=ONGOING",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "0e592a16-2e16-40c9-8aac-66ebd32cd722",
-            "status"
-          ],
-          "query": [
-            {
-              "key": "status",
-              "value": "ONGOING"
-            }
-          ]
-        },
-        "description": "Expected: 200 'Activity status updated successfully'. Activity 0e592a16 is currently PLANNED."
+        "url": "{{baseUrl}}/api/activities/0e592a16-2e16-40c9-8aac-66ebd32cd722/status?status=ONGOING",
+        "description": "Expected: 200 'Activity status updated successfully'. Activity 0e592a16 is currently PLANNED.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D2 - PLANNED to ONGOING (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity status updated successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D2 - Invalid transition (400)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/54f41385-5571-421f-a942-d385b10cf2fd/status?status=PLANNED",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "54f41385-5571-421f-a942-d385b10cf2fd",
-            "status"
-          ],
-          "query": [
-            {
-              "key": "status",
-              "value": "PLANNED"
-            }
-          ]
-        },
-        "description": "Expected: 400 'Cannot change status from POSTPONED to PLANNED'. Activity 54f41385 is POSTPONED (final state)."
+        "url": "{{baseUrl}}/api/activities/54f41385-5571-421f-a942-d385b10cf2fd/status?status=PLANNED",
+        "description": "Expected: 400 'Cannot change status from POSTPONED to PLANNED'. Activity 54f41385 is POSTPONED (final state).\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D2 - Invalid transition (400): HTTP 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cannot change status from POSTPONED to PLANNED\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D2 - Unknown activity (404)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/00000000-0000-0000-0000-000000000000/status?status=ONGOING",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "00000000-0000-0000-0000-000000000000",
-            "status"
-          ],
-          "query": [
-            {
-              "key": "status",
-              "value": "ONGOING"
-            }
-          ]
-        },
-        "description": "Expected: 404 'The activity with that id does not exist'"
+        "url": "{{baseUrl}}/api/activities/{{missingId}}/status?status=ONGOING",
+        "description": "Expected: 404 'The activity with that id does not exist'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D2 - Unknown activity (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity with that id does not exist\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D3 - Add activity type (success)",
       "request": {
         "method": "PUT",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/60fd6b6c-b9c0-4802-bc95-9c6407e28bd4/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4",
-            "activity-types",
-            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
-          ]
-        },
-        "description": "Expected: 200 'Activity type added to the coordinator'. Alice gets Road Cleaning added (she only has Terrace Building)."
+        "url": "{{baseUrl}}/api/coordinators/{{aliceId}}/activity-types/{{roadCleaningTypeId}}",
+        "description": "Expected: 200 'Activity type added to the coordinator'. Alice gets Road Cleaning added (she only has Terrace Building).\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D3 - Add activity type (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity type added to the coordinator\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D3 - Duplicate activity type (409)",
       "request": {
         "method": "PUT",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
-            "activity-types",
-            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
-          ]
-        },
-        "description": "Expected: 409 'The coordinator already has that activity type'. Cynthia already has Road Cleaning."
+        "url": "{{baseUrl}}/api/coordinators/{{cynthiaId}}/activity-types/{{roadCleaningTypeId}}",
+        "description": "Expected: 409 'The coordinator already has that activity type'. Cynthia already has Road Cleaning.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D3 - Duplicate activity type (409): HTTP 409\", function () { pm.response.to.have.status(409); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The coordinator already has that activity type\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D3 - Unknown coordinator (404)",
       "request": {
         "method": "PUT",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/00000000-0000-0000-0000-000000000000/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "00000000-0000-0000-0000-000000000000",
-            "activity-types",
-            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
-          ]
-        },
-        "description": "Expected: 404 'The coordinator with that id does not exist'"
+        "url": "{{baseUrl}}/api/coordinators/{{missingId}}/activity-types/{{roadCleaningTypeId}}",
+        "description": "Expected: 404 'The coordinator with that id does not exist'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D3 - Unknown coordinator (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The coordinator with that id does not exist\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D4 - Move coordinator to cell (success)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=4",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
-            "cell"
-          ],
-          "query": [
-            {
-              "key": "cellNumber",
-              "value": "4"
-            }
-          ]
-        },
-        "description": "Expected: 200 'Cell changed successfully'. Cynthia moves from Cell 1 to Cell 4 (free). Run C2 after to confirm Cell 1 is now free."
+        "url": "{{baseUrl}}/api/coordinators/{{cynthiaId}}/cell?cellNumber=4",
+        "description": "Expected: 200 'Cell changed successfully'. Cynthia moves from Cell 1 to Cell 4 (free). Run C2 after to confirm Cell 1 is now free.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D4 - Move coordinator to cell (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cell changed successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D4 - Cell taken by another coordinator (409)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=2",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
-            "cell"
-          ],
-          "query": [
-            {
-              "key": "cellNumber",
-              "value": "2"
-            }
-          ]
-        },
-        "description": "Expected: 409 'That cell is taken by another coordinator'. Cell 2 belongs to Alice."
+        "url": "{{baseUrl}}/api/coordinators/{{cynthiaId}}/cell?cellNumber=2",
+        "description": "Expected: 409 'That cell is taken by another coordinator'. Cell 2 belongs to Alice.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D4 - Cell taken by another coordinator (409): HTTP 409\", function () { pm.response.to.have.status(409); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"That cell is taken by another coordinator\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D4 - Unknown cell (404)",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=99",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
-            "cell"
-          ],
-          "query": [
-            {
-              "key": "cellNumber",
-              "value": "99"
-            }
-          ]
-        },
-        "description": "Expected: 404 'The cell with that cellNumber does not exist'"
+        "url": "{{baseUrl}}/api/coordinators/{{cynthiaId}}/cell?cellNumber=99",
+        "description": "Expected: 404 'The cell with that cellNumber does not exist'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D4 - Unknown cell (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The cell with that cellNumber does not exist\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "D4 - Restore Cynthia to Cell 1",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=1",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "coordinators",
-            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
-            "cell"
-          ],
-          "query": [
-            {
-              "key": "cellNumber",
-              "value": "1"
-            }
-          ]
-        },
-        "description": "Restore Cynthia to Cell 1 after D4 success test. Run this to reset state."
+        "url": "{{baseUrl}}/api/coordinators/{{cynthiaId}}/cell?cellNumber=1",
+        "description": "Restore Cynthia to Cell 1 after D4 success test. Run this to reset state.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"D4 - Restore Cynthia to Cell 1: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Cell changed successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E1 - Save activity report (201)",
@@ -1389,23 +1526,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=e4ff3d51-4713-442f-bc42-1695158521c2",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activity-reports",
-            "save"
-          ],
-          "query": [
-            {
-              "key": "activityId",
-              "value": "e4ff3d51-4713-442f-bc42-1695158521c2"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/activity-reports/save?activityId={{kibagabagaAccomplishedId}}",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"workDone\": \"Planted 200 trees around Kibagabaga village\",\n  \"remarks\": \"All planted trees were recorded for follow-up\",\n  \"attendance\": 75\n}",
@@ -1415,9 +1536,21 @@
             }
           }
         },
-        "description": "Expected: 201 'Activity report saved successfully'. Activity e4ff3d51 is ACCOMPLISHED (Patrick, Kibagabaga, 2026-10-25)."
+        "description": "Expected: 201 'Activity report saved successfully'. Activity e4ff3d51 is ACCOMPLISHED (Patrick, Kibagabaga, 2026-10-25).\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E1 - Save activity report (201): HTTP 201\", function () { pm.response.to.have.status(201); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity report saved successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E1 - Non-accomplished activity (400)",
@@ -1429,23 +1562,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=620713c8-789d-47dc-aa51-3c2bd0687c08",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activity-reports",
-            "save"
-          ],
-          "query": [
-            {
-              "key": "activityId",
-              "value": "620713c8-789d-47dc-aa51-3c2bd0687c08"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/activity-reports/save?activityId={{kibagabagaPlannedId}}",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"workDone\": \"Attempted report\",\n  \"remarks\": \"Should be rejected\",\n  \"attendance\": 10\n}",
@@ -1455,9 +1572,21 @@
             }
           }
         },
-        "description": "Expected: 400 'Activity reports are only for ACCOMPLISHED activities'. Activity 620713c8 is PLANNED."
+        "description": "Expected: 400 'Activity reports are only for ACCOMPLISHED activities'. Activity 620713c8 is PLANNED.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E1 - Non-accomplished activity (400): HTTP 400\", function () { pm.response.to.have.status(400); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity reports are only for ACCOMPLISHED activities\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E1 - Unknown activity (404)",
@@ -1469,23 +1598,7 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=00000000-0000-0000-0000-000000000000",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activity-reports",
-            "save"
-          ],
-          "query": [
-            {
-              "key": "activityId",
-              "value": "00000000-0000-0000-0000-000000000000"
-            }
-          ]
-        },
+        "url": "{{baseUrl}}/api/activity-reports/save?activityId={{missingId}}",
         "body": {
           "mode": "raw",
           "raw": "{\n  \"workDone\": \"Test\",\n  \"remarks\": \"Unknown activity\",\n  \"attendance\": 1\n}",
@@ -1495,18 +1608,28 @@
             }
           }
         },
-        "description": "Expected: 404 'The activity with that id does not exist'"
+        "description": "Expected: 404 'The activity with that id does not exist'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E1 - Unknown activity (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity with that id does not exist\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E2 - Reports by village code",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/village/VIL-KGL-0216"
-        },
+        "url": "{{baseUrl}}/api/activity-reports/village/VIL-KGL-0216",
         "description": "Expected: 200 with reports for Kibagabaga (VIL-KGL-0216), including the report created by E1. Newest submittedDate first. Run E1 first."
       },
       "response": [],
@@ -1516,6 +1639,8 @@
           "script": {
             "type": "text/javascript",
             "exec": [
+              "pm.test(\"E2 - Reports by village code: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Response is JSON array\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });",
               "const rows = pm.response.json();",
               "const report = rows.find(x => x.workDone === \"Planted 200 trees around Kibagabaga village\");",
               "pm.test(\"E1 report appears in Kibagabaga history\", function () { pm.expect(report, \"Run E1 first\").to.exist; });",
@@ -1530,184 +1655,261 @@
       "request": {
         "method": "DELETE",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/delete/e4ff3d51-4713-442f-bc42-1695158521c2"
-        },
-        "description": "Expected: 409 'That activity has activity reports, delete them first'. This is the same Kibagabaga activity used by E1."
+        "url": "{{baseUrl}}/api/activities/delete/{{kibagabagaAccomplishedId}}",
+        "description": "Expected: 409 'That activity has activity reports, delete them first'. This is the same Kibagabaga activity used by E1.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E3 - Delete activity with report (409): HTTP 409\", function () { pm.response.to.have.status(409); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"That activity has activity reports, delete them first\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E3 - Delete activity report (success)",
       "request": {
         "method": "DELETE",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/delete/{{e1ActivityReportId}}"
-        },
-        "description": "Expected: 200 'Activity report deleted successfully'. Run E1, then E2 to capture the report ID, then run this request."
+        "url": "{{baseUrl}}/api/activity-reports/delete/{{e1ActivityReportId}}",
+        "description": "Expected: 200 'Activity report deleted successfully'. Run E1, then E2 to capture the report ID, then run this request.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E3 - Delete activity report (success): HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"Activity report deleted successfully\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "E3 - Delete unknown report (404)",
       "request": {
         "method": "DELETE",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activity-reports/delete/00000000-0000-0000-0000-000000000000",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activity-reports",
-            "delete",
-            "00000000-0000-0000-0000-000000000000"
-          ]
-        },
-        "description": "Expected: 404 'The activity report with that id does not exist'"
+        "url": "{{baseUrl}}/api/activity-reports/delete/{{missingId}}",
+        "description": "Expected: 404 'The activity report with that id does not exist'\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"E3 - Delete unknown report (404): HTTP 404\", function () { pm.response.to.have.status(404); });",
+              "pm.test(\"Exact response message\", function () { pm.expect(pm.response.text()).to.eql(\"The activity report with that id does not exist\"); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "F1 - Activities grouped by status",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/stats/by-status",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "stats",
-            "by-status"
-          ]
-        },
+        "url": "{{baseUrl}}/api/activities/stats/by-status",
         "description": "Expected: 200 with one [status, count] row for each status currently present. Counts reflect earlier successful D1, D2 and F2 requests; they are not fixed seed counts."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"F1 - Activities grouped by status: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Array of [status,count]\", function () { const r=pm.response.json(); pm.expect(r).to.be.an(\"array\"); r.forEach(row=>{pm.expect(row).to.be.an(\"array\").with.length(2);pm.expect(row[1]).to.be.a(\"number\");}); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "F2 - Cancel coordinator day",
       "request": {
         "method": "PATCH",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/cancel-day?coordinatorId=60fd6b6c-b9c0-4802-bc95-9c6407e28bd4&date=2026-10-20",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "cancel-day"
-          ],
-          "query": [
-            {
-              "key": "coordinatorId",
-              "value": "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4"
-            },
-            {
-              "key": "date",
-              "value": "2026-10-20"
-            }
-          ]
-        },
-        "description": "Expected: 200 '2 activities cancelled'. Alice has two activities on 2026-10-20: one already POSTPONED and one PLANNED. The JPQL update matches both because it excludes only ACCOMPLISHED; both rows are set to POSTPONED."
+        "url": "{{baseUrl}}/api/activities/cancel-day?coordinatorId={{aliceId}}&date=2026-10-20",
+        "description": "Expected: 200 '2 activities cancelled'. Alice has two activities on 2026-10-20: one already POSTPONED and one PLANNED. The JPQL update matches both because it excludes only ACCOMPLISHED; both rows are set to POSTPONED.\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"F2 - Cancel coordinator day: HTTP 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Bonus 1 - Dashboard summary",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/dashboard/summary",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "dashboard",
-            "summary"
-          ]
-        },
+        "url": "{{baseUrl}}/api/dashboard/summary",
         "description": "Expected: 200 {villages:5, coordinators:3, freeCells:1, activitiesToday:0, planned:4, activityReports:1}"
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Bonus 1 - Dashboard summary: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Six dashboard values\", function () { const x=pm.response.json(); [\"villages\",\"coordinators\",\"freeCells\",\"activitiesToday\",\"planned\",\"activityReports\"].forEach(k=>pm.expect(x[k]).to.be.a(\"number\")); });"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Bonus 2 - Activities page 0",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/page?page=0&size=5&sort=activityDate,desc",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "page"
-          ],
-          "query": [
-            {
-              "key": "page",
-              "value": "0"
-            },
-            {
-              "key": "size",
-              "value": "5"
-            },
-            {
-              "key": "sort",
-              "value": "activityDate,desc"
-            }
-          ]
-        },
-        "description": "Expected: 200 Page 0 of activities sorted by date DESC. totalElements=11, totalPages=3."
+        "url": "{{baseUrl}}/api/activities/page?page=0&size=5&sort=activityDate,desc",
+        "description": "Expected: HTTP 200. Page 0, size 5, sorted by activityDate descending. Pagination totals depend on current database contents."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Bonus 2 - Activities page 0: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Page metadata\", function () { const x=pm.response.json(); pm.expect(x.content).to.be.an(\"array\");pm.expect(x.totalPages).to.be.a(\"number\");pm.expect(x.totalElements).to.be.a(\"number\"); });",
+              "pm.test(\"Page size and descending activity-date order\", function () {",
+              "    const x = pm.response.json();",
+              "    pm.expect(x.number).to.eql(0);",
+              "    pm.expect(x.size).to.eql(5);",
+              "    pm.expect(x.content.length).to.be.at.most(5);",
+              "    const dates = x.content.map(a => a.activityDate);",
+              "    for (let i = 1; i < dates.length; i++) {",
+              "        pm.expect(dates[i - 1] >= dates[i]).to.be.true;",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Bonus 2 - Activities page 1",
       "request": {
         "method": "GET",
         "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/api/activities/page?page=1&size=5&sort=activityDate,desc",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "api",
-            "activities",
-            "page"
-          ],
-          "query": [
-            {
-              "key": "page",
-              "value": "1"
-            },
-            {
-              "key": "size",
-              "value": "5"
-            },
-            {
-              "key": "sort",
-              "value": "activityDate,desc"
-            }
-          ]
-        },
-        "description": "Expected: 200 Page 1 of activities sorted by date DESC."
+        "url": "{{baseUrl}}/api/activities/page?page=1&size=5&sort=activityDate,desc",
+        "description": "Expected: HTTP 200. Page 1, size 5, sorted by activityDate descending. Pagination totals depend on current database contents."
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Bonus 2 - Activities page 1: HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Page metadata\", function () { const x=pm.response.json(); pm.expect(x.content).to.be.an(\"array\");pm.expect(x.totalPages).to.be.a(\"number\");pm.expect(x.totalElements).to.be.a(\"number\"); });",
+              "pm.test(\"Page size and descending activity-date order\", function () {",
+              "    const x = pm.response.json();",
+              "    pm.expect(x.number).to.eql(1);",
+              "    pm.expect(x.size).to.eql(5);",
+              "    pm.expect(x.content.length).to.be.at.most(5);",
+              "    const dates = x.content.map(a => a.activityDate);",
+              "    for (let i = 1; i < dates.length; i++) {",
+              "        pm.expect(dates[i - 1] >= dates[i]).to.be.true;",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "D3 - Unknown activity type (404)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": "{{baseUrl}}/api/coordinators/{{aliceId}}/activity-types/{{missingId}}",
+        "description": "Expected: 404 \"That activity type does not exist\"\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\",()=>pm.response.to.have.status(404));",
+              "pm.test(\"Exact message\",()=>pm.expect(pm.response.text()).to.eql(\"That activity type does not exist\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "D4 - Unknown coordinator (404)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/coordinators/{{missingId}}/cell?cellNumber=4",
+        "description": "Expected: 404 \"The coordinator with that id does not exist\"\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\",()=>pm.response.to.have.status(404));",
+              "pm.test(\"Exact message\",()=>pm.expect(pm.response.text()).to.eql(\"The coordinator with that id does not exist\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "D2 - ACCOMPLISHED to PLANNED (400)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "{{baseUrl}}/api/activities/{{kibagabagaAccomplishedId}}/status?status=PLANNED",
+        "description": "Expected: 400 \"Cannot change status from ACCOMPLISHED to PLANNED\"\nState-changing tests must be run individually and may change later test results. Do not blindly run the entire collection."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400\",()=>pm.response.to.have.status(400));",
+              "pm.test(\"Exact message\",()=>pm.expect(pm.response.text()).to.eql(\"Cannot change status from ACCOMPLISHED to PLANNED\"));"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
