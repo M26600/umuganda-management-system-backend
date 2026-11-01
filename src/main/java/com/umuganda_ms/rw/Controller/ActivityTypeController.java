@@ -1,16 +1,24 @@
 package com.umuganda_ms.rw.Controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.umuganda_ms.rw.Service.ActivityTypeService;
 import com.umuganda_ms.rw.domain.ActivityType;
 
-@RestController 
+@RestController
 @RequestMapping("/api/activity-types")
 public class ActivityTypeController {
 
@@ -20,21 +28,21 @@ public class ActivityTypeController {
         this.activityTypeService = activityTypeService;
     }
 
-    // A2: Save activity type
+    // A2
     @PostMapping("/save")
     public ResponseEntity<String> saveActivityType(@RequestBody ActivityType activityType) {
         String message = activityTypeService.saveActivityType(activityType);
         return ResponseEntity.status(HttpStatus.CREATED).body(message);
     }
 
-    // A2: Get all activity types
+    // A2
     @GetMapping("/all")
     public ResponseEntity<List<ActivityType>> getAllActivityTypes() {
         List<ActivityType> activityTypes = activityTypeService.getAllActivityTypes();
         return ResponseEntity.ok(activityTypes);
     }
 
-    // A2: Get activity type by id
+    // A2
     @GetMapping("/{id}")
     public ResponseEntity<?> getActivityTypeById(@PathVariable UUID id) {
         Optional<ActivityType> existingActivityType = activityTypeService.getActivityTypeById(id);
@@ -46,7 +54,7 @@ public class ActivityTypeController {
         }
     }
 
-    // A2: Update activity type
+    // A2
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateActivityType(
             @PathVariable UUID id,
@@ -59,7 +67,7 @@ public class ActivityTypeController {
         }
     }
 
-    // A2: Delete activity type
+    // A2
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteActivityType(@PathVariable UUID id) {
         String message = activityTypeService.deleteActivityType(id);
@@ -70,7 +78,7 @@ public class ActivityTypeController {
         }
     }
 
-    // C3: Activity types nobody holds
+    // C3
     @GetMapping("/unused")
     public ResponseEntity<List<ActivityType>> getUnusedActivityTypes() {
         List<ActivityType> activityTypes = activityTypeService.getUnusedActivityTypes();

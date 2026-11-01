@@ -1,6 +1,9 @@
 package com.umuganda_ms.rw.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.umuganda_ms.rw.Repository.CoordinatorRepository;
@@ -14,7 +17,7 @@ public class VillageService {
     private final CoordinatorRepository coordinatorRepository;
 
     public VillageService(VillageRepository villageRepository,
-                          CoordinatorRepository coordinatorRepository) {
+            CoordinatorRepository coordinatorRepository) {
         this.villageRepository = villageRepository;
         this.coordinatorRepository = coordinatorRepository;
     }
@@ -27,13 +30,13 @@ public class VillageService {
         return villageRepository.findById(id);
     }
 
-    // A2: Save village
+    // A2
     public String saveVillage(Village village) {
         villageRepository.save(village);
         return "Village saved successfully";
     }
 
-    // A2: Update village
+    // A2
     public String updateVillage(UUID id, Village updatedVillage) {
         Optional<Village> existingVillage = villageRepository.findById(id);
         if (existingVillage.isEmpty()) {
@@ -48,7 +51,7 @@ public class VillageService {
         return "Village updated successfully";
     }
 
-    // A2: Delete village
+    // A2
     public String deleteVillage(UUID id) {
         Optional<Village> existingVillage = villageRepository.findById(id);
         if (existingVillage.isEmpty()) {
@@ -58,12 +61,12 @@ public class VillageService {
         return "Village deleted successfully";
     }
 
-    // B1: Find villages by sectorName
+    // B1
     public List<Village> getVillagesBySectorName(String sectorName) {
         return villageRepository.findBySectorNameIgnoreCaseOrderByVillageNameAsc(sectorName);
     }
 
-    // C4: Villages of a coordinator
+    // C4
     public Optional<List<Village>> getVillagesOfCoordinator(UUID coordinatorId) {
         if (!coordinatorRepository.existsById(coordinatorId)) {
             return Optional.empty();

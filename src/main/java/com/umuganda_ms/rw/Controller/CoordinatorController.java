@@ -1,13 +1,26 @@
 package com.umuganda_ms.rw.Controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.umuganda_ms.rw.Service.CoordinatorService;
 import com.umuganda_ms.rw.domain.Coordinator;
 
-@RestController 
+@RestController
 @RequestMapping("/api/coordinators")
 public class CoordinatorController {
 
@@ -17,7 +30,7 @@ public class CoordinatorController {
         this.coordinatorService = coordinatorService;
     }
 
-    // A2: Save coordinator
+    // A2
     @PostMapping("/save")
     public ResponseEntity<String> saveCoordinator(@RequestBody Coordinator coordinator) {
         String message = coordinatorService.saveCoordinator(coordinator);
@@ -27,14 +40,14 @@ public class CoordinatorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(message);
     }
 
-    // A2: Get all coordinators
+    // A2
     @GetMapping("/all")
     public ResponseEntity<List<Coordinator>> getAllCoordinators() {
         List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
         return ResponseEntity.ok(coordinators);
     }
 
-    // A2: Get coordinator by id
+    // A2
     @GetMapping("/{id}")
     public ResponseEntity<?> getCoordinatorById(@PathVariable UUID id) {
         Optional<Coordinator> existingCoordinator = coordinatorService.getCoordinatorById(id);
@@ -46,7 +59,7 @@ public class CoordinatorController {
         }
     }
 
-    // A2: Update coordinator
+    // A2
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateCoordinator(
             @PathVariable UUID id,
@@ -59,7 +72,7 @@ public class CoordinatorController {
         }
     }
 
-    // A2: Delete coordinator
+    // A2
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCoordinator(@PathVariable UUID id) {
         String message = coordinatorService.deleteCoordinatorById(id);
@@ -70,7 +83,7 @@ public class CoordinatorController {
         }
     }
 
-    // C1: Coordinators by activity type
+    // C1
     @GetMapping("/by-activity-type")
     public ResponseEntity<List<Coordinator>> getCoordinatorsByActivityType(
             @RequestParam String name) {
@@ -78,7 +91,7 @@ public class CoordinatorController {
         return ResponseEntity.ok(coordinators);
     }
 
-    // D3: Add activity type to coordinator
+    // D3
     @PutMapping("/{coordinatorId}/activity-types/{activityTypeId}")
     public ResponseEntity<String> addActivityType(
             @PathVariable UUID coordinatorId,
@@ -94,7 +107,7 @@ public class CoordinatorController {
         }
     }
 
-    // D4: Move coordinator to another cell
+    // D4
     @PatchMapping("/{coordinatorId}/cell")
     public ResponseEntity<String> changeCoordinatorCell(
             @PathVariable UUID coordinatorId,

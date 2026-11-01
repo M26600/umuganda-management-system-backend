@@ -1,15 +1,18 @@
 package com.umuganda_ms.rw.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
-import com.umuganda_ms.rw.Repository.CoordinatorRepository;
-import com.umuganda_ms.rw.Repository.CellRepository;
 import com.umuganda_ms.rw.Repository.ActivityTypeRepository;
-
-import com.umuganda_ms.rw.domain.Coordinator;
-import com.umuganda_ms.rw.domain.Cell;
+import com.umuganda_ms.rw.Repository.CellRepository;
+import com.umuganda_ms.rw.Repository.CoordinatorRepository;
 import com.umuganda_ms.rw.domain.ActivityType;
+import com.umuganda_ms.rw.domain.Cell;
+import com.umuganda_ms.rw.domain.Coordinator;
 
 @Service
 public class CoordinatorService {
@@ -19,8 +22,8 @@ public class CoordinatorService {
     private final ActivityTypeRepository activityTypeRepository;
 
     public CoordinatorService(CoordinatorRepository coordinatorRepository,
-                              CellRepository cellRepository,
-                              ActivityTypeRepository activityTypeRepository) {
+            CellRepository cellRepository,
+            ActivityTypeRepository activityTypeRepository) {
         this.coordinatorRepository = coordinatorRepository;
         this.activityTypeRepository = activityTypeRepository;
         this.cellRepository = cellRepository;
@@ -35,7 +38,7 @@ public class CoordinatorService {
     }
 
     public String saveCoordinator(Coordinator coordinator) {
-        // Find existing cell if provided
+
         if (coordinator.getCell() != null && coordinator.getCell().getId() != null) {
             Optional<Cell> existingCell = cellRepository.findById(coordinator.getCell().getId());
             if (existingCell.isEmpty()) {
@@ -44,13 +47,12 @@ public class CoordinatorService {
             coordinator.setCell(existingCell.get());
         }
 
-        // Find existing activity types if provided
         if (coordinator.getActivityTypes() != null && !coordinator.getActivityTypes().isEmpty()) {
             List<ActivityType> existingTypes = new ArrayList<>();
             for (ActivityType activityType : coordinator.getActivityTypes()) {
                 if (activityType.getId() != null) {
-                    Optional<ActivityType> existingType =
-                            activityTypeRepository.findById(activityType.getId());
+                    Optional<ActivityType> existingType
+                            = activityTypeRepository.findById(activityType.getId());
                     if (existingType.isEmpty()) {
                         return "The activity type with that id does not exist";
                     }
@@ -91,12 +93,12 @@ public class CoordinatorService {
         return "Coordinator deleted successfully";
     }
 
-    // C1: Coordinators by activity type
+    // C1
     public List<Coordinator> getCoordinatorsByActivityType(String name) {
         return coordinatorRepository.findByActivityTypeName(name);
     }
 
-    // D3: Add an activity type to the coordinator
+    // D3
     public String addActivityType(UUID coordinatorId, UUID activityTypeId) {
         Optional<Coordinator> coordinatorOptional = coordinatorRepository.findById(coordinatorId);
         if (coordinatorOptional.isEmpty()) {
@@ -111,24 +113,20 @@ public class CoordinatorService {
         Coordinator coordinator = coordinatorOptional.get();
         ActivityType activityType = activityTypeOptional.get();
 
-        boolean alreadyHas = coordinator.getActivityTypes() != null &&
-                coordinator.getActivityTypes().stream()
-                        .anyMatch(at -> at.getId() != null && at.getId().equals(activityTypeId));
-
-        if (alreadyHas) {
-            return "The coordinator already has that activity type";
-        }
-
         if (coordinator.getActivityTypes() == null) {
             coordinator.setActivityTypes(new ArrayList<>());
         }
+        if (coordinator.getActivityTypes().contains(activityType)) {
+            return "The coordinator already has that activity type";
+        }
+
         coordinator.getActivityTypes().add(activityType);
         coordinatorRepository.save(coordinator);
 
         return "Activity type added to the coordinator";
     }
 
-    // D4: Moving coordinator to another cell
+    // D4
     public String changeCoordinatorCell(UUID coordinatorId, int cellNumber) {
         Optional<Coordinator> coordinatorOptional = coordinatorRepository.findById(coordinatorId);
         if (coordinatorOptional.isEmpty()) {
@@ -143,8 +141,8 @@ public class CoordinatorService {
         Coordinator coordinator = coordinatorOptional.get();
         Cell newCell = cellOptional.get();
 
-        if (coordinator.getCell() != null &&
-                coordinator.getCell().getId().equals(newCell.getId())) {
+        if (coordinator.getCell() != null
+                && coordinator.getCell().getId().equals(newCell.getId())) {
             return "Cell changed successfully";
         }
 

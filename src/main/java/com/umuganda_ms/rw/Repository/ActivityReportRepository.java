@@ -12,10 +12,10 @@ import com.umuganda_ms.rw.domain.ActivityReport;
 
 public interface ActivityReportRepository extends JpaRepository<ActivityReport, UUID> {
 
-    // E2: JPQL with path navigation (r.activity.village.villageCode) and ORDER BY
+    // E2
     @Query("SELECT r FROM ActivityReport r WHERE r.activity.village.villageCode = :villageCode ORDER BY r.submittedDate DESC")
     List<ActivityReport> findReportsByVillageCode(@Param("villageCode") String villageCode);
 
-    // E3: DERIVED query to protect activity deletion
+    // E3
     boolean existsByActivity(Activity activity);
 }

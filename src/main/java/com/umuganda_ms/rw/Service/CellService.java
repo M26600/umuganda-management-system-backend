@@ -1,7 +1,11 @@
 package com.umuganda_ms.rw.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
+
 import com.umuganda_ms.rw.Repository.CellRepository;
 import com.umuganda_ms.rw.domain.Cell;
 
@@ -22,13 +26,13 @@ public class CellService {
         return cellRepository.findById(id);
     }
 
-    // A2: Save cell
+    // A2
     public String saveCell(Cell cell) {
         cellRepository.save(cell);
         return "Cell saved successfully";
     }
 
-    // A2: Update cell
+    // A2
     public String updateCell(UUID id, Cell updatedCell) {
         Optional<Cell> existingCell = cellRepository.findById(id);
         if (existingCell.isEmpty()) {
@@ -41,7 +45,7 @@ public class CellService {
         return "Cell updated successfully";
     }
 
-    // A2: Delete cell
+    // A2
     public String deleteCell(UUID id) {
         Optional<Cell> existingCell = cellRepository.findById(id);
         if (existingCell.isEmpty()) {
@@ -51,7 +55,7 @@ public class CellService {
         return "Cell deleted successfully";
     }
 
-    // C2: Free cells
+    // C2
     public List<Cell> getFreeCells() {
         return cellRepository.findFreeCells();
     }

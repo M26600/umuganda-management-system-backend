@@ -1,8 +1,17 @@
 package com.umuganda_ms.rw.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "activity_type")
@@ -25,40 +34,27 @@ public class ActivityType {
         this.name = name;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public UUID getId() {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setCoordinators(List<Coordinator> coordinators) {
-        this.coordinators = coordinators;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Coordinator> getCoordinators() {
         return coordinators;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ActivityType that = (ActivityType) o;
-        return id != null && id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void setCoordinators(List<Coordinator> coordinators) {
+        this.coordinators = coordinators;
     }
 }

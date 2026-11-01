@@ -1,13 +1,18 @@
 package com.umuganda_ms.rw.domain;
 
-import jakarta.persistence.*;
-import java.util.*;
+import java.util.UUID;
 
-@Entity 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
 @Table(name = "cell")
 public class Cell {
 
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -45,18 +50,5 @@ public class Cell {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return id != null && id.equals(cell.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
     }
 }

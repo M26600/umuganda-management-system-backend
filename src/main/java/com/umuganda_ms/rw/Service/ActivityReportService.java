@@ -20,7 +20,7 @@ public class ActivityReportService {
     private final ActivityRepository activityRepository;
 
     public ActivityReportService(ActivityReportRepository activityReportRepository,
-                                 ActivityRepository activityRepository) {
+            ActivityRepository activityRepository) {
         this.activityReportRepository = activityReportRepository;
         this.activityRepository = activityRepository;
     }
@@ -33,7 +33,7 @@ public class ActivityReportService {
         return activityReportRepository.findById(id);
     }
 
-    // E1: Write an activity report
+    // E1
     public String saveActivityReport(UUID activityId, ActivityReport report) {
         Optional<Activity> existingActivity = activityRepository.findById(activityId);
 
@@ -54,12 +54,12 @@ public class ActivityReportService {
         return "Activity report saved successfully";
     }
 
-    // E2: Activity report history of a village
+    // E2
     public List<ActivityReport> getReportsByVillageCode(String villageCode) {
         return activityReportRepository.findReportsByVillageCode(villageCode);
     }
 
-    // E3: Delete activity report
+    // E3
     public String deleteActivityReport(UUID id) {
         Optional<ActivityReport> existingReport = activityReportRepository.findById(id);
 

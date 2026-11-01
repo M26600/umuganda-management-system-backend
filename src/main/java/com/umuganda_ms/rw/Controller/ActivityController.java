@@ -1,7 +1,9 @@
 package com.umuganda_ms.rw.Controller;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +11,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.umuganda_ms.rw.Service.ActivityService;
 import com.umuganda_ms.rw.domain.Activity;
@@ -25,7 +36,7 @@ public class ActivityController {
         this.activityService = activityService;
     }
 
-    // A2 & D1: Save activity
+    // A2 & D1
     @PostMapping("/save")
     public ResponseEntity<String> saveActivity(@RequestBody Activity activity) {
         String message = activityService.saveActivity(activity);
@@ -38,14 +49,14 @@ public class ActivityController {
         }
     }
 
-    // A2: Get all activities
+    // A2
     @GetMapping("/all")
     public ResponseEntity<List<Activity>> getAllActivities() {
         List<Activity> activities = activityService.getAllActivities();
         return ResponseEntity.ok(activities);
     }
 
-    // A2: Get activity by id
+    // A2
     @GetMapping("/{id}")
     public ResponseEntity<?> getActivityById(@PathVariable UUID id) {
         Optional<Activity> activity = activityService.getActivityById(id);
@@ -57,7 +68,7 @@ public class ActivityController {
         }
     }
 
-    // A2 & D2: Update activity (status does not change here)
+    // A2 & D2
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateActivity(
             @PathVariable UUID id,
@@ -70,7 +81,7 @@ public class ActivityController {
         }
     }
 
-    // A2 & E3: Delete activity
+    // A2 & E3
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteActivity(@PathVariable UUID id) {
         String message = activityService.deleteActivity(id);
@@ -83,14 +94,14 @@ public class ActivityController {
         }
     }
 
-    // B2: Activities by status
+    // B2
     @GetMapping("/by-status")
     public ResponseEntity<List<Activity>> getActivityByStatus(@RequestParam ActivityStatus status) {
         List<Activity> activities = activityService.getActivityByStatus(status);
         return ResponseEntity.ok(activities);
     }
 
-    // B3: Activities in a date range
+    // B3
     @GetMapping("/between")
     public ResponseEntity<List<Activity>> getActivitiesBetween(
             @RequestParam String start,
@@ -101,7 +112,7 @@ public class ActivityController {
         return ResponseEntity.ok(activities);
     }
 
-    // D2: Status flow
+    // D2
     @PatchMapping("/{id}/status")
     public ResponseEntity<String> updateActivityStatus(
             @PathVariable UUID id,
@@ -116,19 +127,17 @@ public class ActivityController {
         }
     }
 
-    // F1: Activities per status
+    // F1
     @GetMapping("/stats/by-status")
     public ResponseEntity<List<Object[]>> getActivitiesStatsByStatus() {
         return ResponseEntity.ok(activityService.getActivitiesStatsByStatus());
     }
 
-    // F2: Coordinator is absent
+    // F2
     @PatchMapping("/cancel-day")
     public ResponseEntity<String> cancelActivitiesForAbsentCoordinator(
             @RequestParam UUID coordinatorId,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(
-                    iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
-            LocalDate date) {
+            @RequestParam LocalDate date) {
         String message = activityService.cancelActivitiesForAbsentCoordinator(coordinatorId, date);
         return ResponseEntity.ok(message);
     }

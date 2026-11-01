@@ -1,769 +1,1713 @@
 {
-	"info": {
-		"_postman_id": "7a35e7df-0361-43e5-8299-19ecfe76412e",
-		"name": "Umuganda Management System - Mid-Term Exam",
-		"description": "Postman Collection for AUCA Web Technology and Internet Mid-Term Examination.\nStudent: MUGENI Cynthia (ID: 26600).\nLecturer: Patrick DUSHIMIMANA.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Step 0 - Seed Data",
-			"item": [
-				{
-					"name": "Seed ActivityType 1 (Road Cleaning)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Road Cleaning\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/activity-types/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activity-types", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed ActivityType 2 (Tree Planting)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Tree Planting\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/activity-types/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activity-types", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed ActivityType 3 (Terrace Building)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Terrace Building\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/activity-types/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activity-types", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed ActivityType 4 (School Construction - Unused)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"School Construction\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/activity-types/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activity-types", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Cell 1",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cellNumber\": 1,\n    \"name\": \"Rukiri I\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/cells/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "cells", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Cell 2",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cellNumber\": 2,\n    \"name\": \"Rukiri II\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/cells/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "cells", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Cell 3",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cellNumber\": 3,\n    \"name\": \"Nyabisindu\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/cells/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "cells", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Cell 4 (Free Cell)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cellNumber\": 4,\n    \"name\": \"Kibagabaga\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/cells/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "cells", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Village 1 (Remera Sector - VIL-KGL-0214)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Amahoro\",\n    \"leaderName\": \"Jean Claude\",\n    \"villageCode\": \"VIL-KGL-0214\",\n    \"sectorName\": \"Remera\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Village 2 (Remera Sector)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Ubumwe\",\n    \"leaderName\": \"Marie Claire\",\n    \"villageCode\": \"VIL-KGL-0215\",\n    \"sectorName\": \"Remera\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Village 3 (Kimironko Sector)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Intwari\",\n    \"leaderName\": \"Patrick Mugabo\",\n    \"villageCode\": \"VIL-KGL-0301\",\n    \"sectorName\": \"Kimironko\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Village 4 (Gisozi Sector)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Rebero\",\n    \"leaderName\": \"Aline Umutoni\",\n    \"villageCode\": \"VIL-KGL-0402\",\n    \"sectorName\": \"Gisozi\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				},
-				{
-					"name": "Seed Village 5 (Kacyiru Sector)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Inyange\",\n    \"leaderName\": \"Eric Habimana\",\n    \"villageCode\": \"VIL-KGL-0503\",\n    \"sectorName\": \"Kacyiru\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "A2 - CRUD",
-			"item": [
-				{
-					"name": "A2: Save Village",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Rugando\",\n    \"leaderName\": \"Chantal Uwase\",\n    \"villageCode\": \"VIL-KGL-0999\",\n    \"sectorName\": \"Kimihurura\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/save",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "save"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get All Villages",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/all",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "all"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get Village By ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/{{villageId}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "{{villageId}}"]
-						}
-					}
-				},
-				{
-					"name": "A2: Update Village",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"villageName\": \"Rugando Updated\",\n    \"leaderName\": \"Chantal Uwase\",\n    \"villageCode\": \"VIL-KGL-0999\",\n    \"sectorName\": \"Kimihurura\"\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/update/{{villageId}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "update", "{{villageId}}"]
-						}
-					}
-				},
-				{
-					"name": "A2: Delete Village",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/villages/delete/{{villageId}}",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "villages", "delete", "{{villageId}}"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get All Coordinators",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/coordinators/all",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "coordinators", "all"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get All Cells",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/cells/all",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "cells", "all"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get All Activity Types",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/activity-types/all",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activity-types", "all"]
-						}
-					}
-				},
-				{
-					"name": "A2: Get All Activities",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/api/activities/all",
-							"host": ["{{baseUrl}}"],
-							"path": ["api", "activities", "all"]
-						}
-					}
-				}
-			]
-		},
-		{
-			"name": "B1 - Villages by Sector Name",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/villages/by-sector-name?sectorName=remera",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "villages", "by-sector-name"],
-					"query": [
-						{
-							"key": "sectorName",
-							"value": "remera"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "B2 - Activities by Status",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/by-status?status=PLANNED",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "by-status"],
-					"query": [
-						{
-							"key": "status",
-							"value": "PLANNED"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "B3 - Activities in Date Range",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/between?start=2026-10-01&end=2026-11-30",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "between"],
-					"query": [
-						{
-							"key": "start",
-							"value": "2026-10-01"
-						},
-						{
-							"key": "end",
-							"value": "2026-11-30"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "C1 - Coordinators by Activity Type",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/coordinators/by-activity-type?name=tree",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "coordinators", "by-activity-type"],
-					"query": [
-						{
-							"key": "name",
-							"value": "tree"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "C2 - Free Cells",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/cells/free",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "cells", "free"]
-				}
-			}
-		},
-		{
-			"name": "C3 - Activity Types Nobody Holds",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activity-types/unused",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activity-types", "unused"]
-				}
-			}
-		},
-		{
-			"name": "C4 - Villages of a Coordinator",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/villages/of-coordinator/{{coordinatorId}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "villages", "of-coordinator", "{{coordinatorId}}"]
-				}
-			}
-		},
-		{
-			"name": "D1 - Safe Saving (Activity Save)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"activityDate\": \"2026-11-28\",\n    \"objective\": \"Plant 500 trees in Remera\",\n    \"village\": {\n        \"id\": \"{{villageId}}\"\n    },\n    \"coordinator\": {\n        \"id\": \"{{coordinatorId}}\"\n    },\n    \"status\": \"ACCOMPLISHED\"\n}"
-				},
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/save",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "save"]
-				}
-			}
-		},
-		{
-			"name": "D2 - Status Flow",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/{{activityId}}/status?status=ONGOING",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "{{activityId}}", "status"],
-					"query": [
-						{
-							"key": "status",
-							"value": "ONGOING"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "D3 - Add Activity Type to Coordinator",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/coordinators/{{coordinatorId}}/activity-types/{{activityTypeId}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "coordinators", "{{coordinatorId}}", "activity-types", "{{activityTypeId}}"]
-				}
-			}
-		},
-		{
-			"name": "D4 - Move Coordinator to Another Cell",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/coordinators/{{coordinatorId}}/cell?cellNumber=4",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "coordinators", "{{coordinatorId}}", "cell"],
-					"query": [
-						{
-							"key": "cellNumber",
-							"value": "4"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "E1 - Write an Activity Report",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"workDone\": \"Road cleaned\",\n    \"remarks\": \"Two kilometres of drainage cleared\",\n    \"attendance\": 134\n}"
-				},
-				"url": {
-					"raw": "{{baseUrl}}/api/activity-reports/save?activityId={{activityId}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activity-reports", "save"],
-					"query": [
-						{
-							"key": "activityId",
-							"value": "{{activityId}}"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "E2 - Activity Report History of a Village",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activity-reports/village/{{villageCode}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activity-reports", "village", "{{villageCode}}"]
-				}
-			}
-		},
-		{
-			"name": "E3 - Delete and Protect (Delete Activity Report)",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activity-reports/delete/{{reportId}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activity-reports", "delete", "{{reportId}}"]
-				}
-			}
-		},
-		{
-			"name": "E3 - Delete Activity (Protected if reports exist)",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/delete/{{activityId}}",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "delete", "{{activityId}}"]
-				}
-			}
-		},
-		{
-			"name": "F1 - Activities per Status",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/stats/by-status",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "stats", "by-status"]
-				}
-			}
-		},
-		{
-			"name": "F2 - Coordinator is Absent (Cancel Day)",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/cancel-day?coordinatorId={{coordinatorId}}&date=2026-10-20",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "cancel-day"],
-					"query": [
-						{
-							"key": "coordinatorId",
-							"value": "{{coordinatorId}}"
-						},
-						{
-							"key": "date",
-							"value": "2026-10-20"
-						}
-					]
-				}
-			}
-		},
-		{
-			"name": "Bonus - Dashboard Summary",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/dashboard/summary",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "dashboard", "summary"]
-				}
-			}
-		},
-		{
-			"name": "Bonus - Activities Page by Page",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/api/activities/page?page=0&size=5&sort=activityDate,desc",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "activities", "page"],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						},
-						{
-							"key": "size",
-							"value": "5"
-						},
-						{
-							"key": "sort",
-							"value": "activityDate,desc"
-						}
-					]
-				}
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8080"
-		},
-		{
-			"key": "villageCode",
-			"value": "VIL-KGL-0214"
-		},
-		{
-			"key": "villageId",
-			"value": "00000000-0000-0000-0000-000000000001"
-		},
-		{
-			"key": "coordinatorId",
-			"value": "00000000-0000-0000-0000-000000000002"
-		},
-		{
-			"key": "cellId",
-			"value": "00000000-0000-0000-0000-000000000003"
-		},
-		{
-			"key": "activityTypeId",
-			"value": "00000000-0000-0000-0000-000000000004"
-		},
-		{
-			"key": "activityId",
-			"value": "00000000-0000-0000-0000-000000000005"
-		},
-		{
-			"key": "reportId",
-			"value": "00000000-0000-0000-0000-000000000006"
-		}
-	]
+  "info": {
+    "name": "Umuganda Management System - Midterm Examination",
+    "description": "AUCA INSY 8322 WEB TECHNOLOGY AND INTERNET | Student: MUGENI Cynthia | ID: 26600 | Project: Umuganda Management System. Set baseUrl to http://localhost:8080. Run requests in collection order. Run the query folders B and C before D and E mutations. A2 CRUD test folders run after C4 and before D1; they create temporary records, capture IDs from Get All, update them, and delete them without changing seed records. For E1-E3, run E1, then E2, then E3 Delete activity (409), then E3 Delete report (success). The collection assumes the original seed database described in the examination.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "B1 - Villages by sector name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/villages/by-sector-name?sectorName=remera",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "villages",
+            "by-sector-name"
+          ],
+          "query": [
+            {
+              "key": "sectorName",
+              "value": "remera"
+            }
+          ]
+        },
+        "description": "Expected: 200 with Kabeza and Nyabisindu, sorted A-Z. Case insensitive."
+      },
+      "response": []
+    },
+    {
+      "name": "B2 - Activities by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/by-status?status=PLANNED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "by-status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "PLANNED"
+            }
+          ]
+        },
+        "description": "Expected: 200 activities with PLANNED status, ordered by date ASC. IDs: 0e592a16, c25004ef, 620713c8, d47342cf"
+      },
+      "response": []
+    },
+    {
+      "name": "B3 - Activities between dates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/between?start=2026-10-01&end=2026-10-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "between"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2026-10-01"
+            },
+            {
+              "key": "end",
+              "value": "2026-10-31"
+            }
+          ]
+        },
+        "description": "Expected: 200 activities in October 2026: 54c29ff3, 0e592a16, ba90e549, c25004ef, 648f7906"
+      },
+      "response": []
+    },
+    {
+      "name": "C1 - Coordinators by activity type",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/by-activity-type?name=tree",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "by-activity-type"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "tree"
+            }
+          ]
+        },
+        "description": "Expected: 200 with Cynthia Mugeni only (she holds Tree Planting)"
+      },
+      "response": []
+    },
+    {
+      "name": "C2 - Free cells",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cells/free",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cells",
+            "free"
+          ]
+        },
+        "description": "Expected: 200 with Cell 4 (80d66eb5) - no coordinator assigned"
+      },
+      "response": []
+    },
+    {
+      "name": "C3 - Unused activity types",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-types/unused",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity-types",
+            "unused"
+          ]
+        },
+        "description": "Expected: 200 with School Construction (01b7c693) - nobody holds it"
+      },
+      "response": []
+    },
+    {
+      "name": "C4 - Villages of coordinator (success)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/villages/of-coordinator/60fd6b6c-b9c0-4802-bc95-9c6407e28bd4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "villages",
+            "of-coordinator",
+            "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4"
+          ]
+        },
+        "description": "Expected: 200 Alice's villages: Kabeza, Nyabisindu, Gatenga, Gisozi"
+      },
+      "response": []
+    },
+    {
+      "name": "C4 - Villages of coordinator (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/villages/of-coordinator/00000000-0000-0000-0000-000000000000",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "villages",
+            "of-coordinator",
+            "00000000-0000-0000-0000-000000000000"
+          ]
+        },
+        "description": "Expected: 404 'The coordinator with that id does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "A2 - CRUD Activity Types",
+      "item": [
+        {
+          "name": "A2 - Activity Types - Save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activity-types",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Community Health Awareness\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 201 'Activity type saved successfully'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activity Types - Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activity-types",
+                "all"
+              ]
+            },
+            "description": "Expected: 200 with 5 activity types (4 seed records + this A2 test record). A test script stores its UUID in collection variable a2ActivityTypeId."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const rows = pm.response.json();",
+                  "const record = rows.find(x => x.name === \"Community Health Awareness\");",
+                  "pm.test(\"A2 test activity type is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
+                  "if (record && record.id) { pm.collectionVariables.set(\"a2ActivityTypeId\", record.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "A2 - Activity Types - Get by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/{{a2ActivityTypeId}}"
+            },
+            "description": "Expected: 200 with the A2 test activity type. Run the matching Get All request first to capture the ID."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activity Types - Get by ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activity-types",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The activity type with that id does not exist'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activity Types - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/update/{{a2ActivityTypeId}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Community Health Awareness Updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activity Types - Delete (success)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/delete/{{a2ActivityTypeId}}"
+            },
+            "description": "Expected: 200 'Activity type deleted successfully'. Deletes only the temporary A2 test record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activity Types - Delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activity-types/delete/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activity-types",
+                "delete",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The activity type with that id does not exist'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A2 - CRUD Cells",
+      "item": [
+        {
+          "name": "A2 - Cells - Save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cells",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cellNumber\": 5,\n  \"name\": \"Cell 5\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 201 'Cell saved successfully'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Cells - Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cells",
+                "all"
+              ]
+            },
+            "description": "Expected: 200 with 5 cells (4 seed records + this A2 test record). A test script stores its UUID in collection variable a2CellId."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const rows = pm.response.json();",
+                  "const record = rows.find(x => x.cellNumber === 5);",
+                  "pm.test(\"A2 test cell is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
+                  "if (record && record.id) { pm.collectionVariables.set(\"a2CellId\", record.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "A2 - Cells - Get by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/{{a2CellId}}"
+            },
+            "description": "Expected: 200 with the temporary Cell 5. Run the matching Get All request first to capture the ID."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Cells - Get by ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cells",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The cell with that id does not exist'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Cells - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/update/{{a2CellId}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cellNumber\": 55,\n  \"name\": \"Cell 5 Updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Cells - Delete (success)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/delete/{{a2CellId}}"
+            },
+            "description": "Expected: 200 'Cell deleted successfully'. Deletes only the temporary cell."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Cells - Delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/cells/delete/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cells",
+                "delete",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The cell with that id does not exist'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A2 - CRUD Coordinators",
+      "item": [
+        {
+          "name": "A2 - Coordinators - Save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coordinators",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788000010\",\n  \"cell\": null,\n  \"activityTypes\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 201 'Coordinator saved successfully'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Coordinators - Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coordinators",
+                "all"
+              ]
+            },
+            "description": "Expected: 200 with 4 coordinators (3 seed records + this A2 test record). A test script stores its UUID in collection variable a2CoordinatorId."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const rows = pm.response.json();",
+                  "const record = rows.find(x => x.firstName === \"Jean\" && x.lastName === \"Habimana\");",
+                  "pm.test(\"A2 test coordinator is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
+                  "if (record && record.id) { pm.collectionVariables.set(\"a2CoordinatorId\", record.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "A2 - Coordinators - Get by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/{{a2CoordinatorId}}"
+            },
+            "description": "Expected: 200 with the temporary coordinator Jean Habimana. Run the matching Get All request first to capture the ID."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Coordinators - Get by ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coordinators",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The coordinator with that id does not exist'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Coordinators - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/update/{{a2CoordinatorId}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jean Updated\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788000099\",\n  \"cell\": null,\n  \"activityTypes\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Coordinators - Delete (success)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/delete/{{a2CoordinatorId}}"
+            },
+            "description": "Expected: 200 'Coordinator deleted successfully'. Deletes only the temporary coordinator."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Coordinators - Delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/coordinators/delete/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "coordinators",
+                "delete",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The coordinator with that id does not exist'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A2 - CRUD Villages",
+      "item": [
+        {
+          "name": "A2 - Villages - Save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "villages",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"villageName\": \"Biryogo\",\n  \"leaderName\": \"Test Leader\",\n  \"villageCode\": \"VIL-TEST-9001\",\n  \"sectorName\": \"Nyarugenge\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 201 'Village saved successfully'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Villages - Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "villages",
+                "all"
+              ]
+            },
+            "description": "Expected: 200 with 6 villages (5 seed records + this A2 test record). A test script stores its UUID in collection variable a2VillageId."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const rows = pm.response.json();",
+                  "const record = rows.find(x => x.villageCode === \"VIL-TEST-9001\");",
+                  "pm.test(\"A2 test village is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
+                  "if (record && record.id) { pm.collectionVariables.set(\"a2VillageId\", record.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "A2 - Villages - Get by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/{{a2VillageId}}"
+            },
+            "description": "Expected: 200 with the temporary Biryogo village. Run the matching Get All request first to capture the ID."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Villages - Get by ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "villages",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The village with that id does not exist'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Villages - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/update/{{a2VillageId}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"villageName\": \"Biryogo Updated\",\n  \"leaderName\": \"Updated Test Leader\",\n  \"villageCode\": \"VIL-TEST-9001\",\n  \"sectorName\": \"Nyarugenge\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Villages - Delete (success)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/delete/{{a2VillageId}}"
+            },
+            "description": "Expected: 200 'Village deleted successfully'. Deletes only the temporary A2 test village."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Villages - Delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/villages/delete/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "villages",
+                "delete",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The village with that id does not exist'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A2 - CRUD Activities",
+      "item": [
+        {
+          "name": "A2 - Activities - Save",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activities",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activityDate\": \"2026-12-05\",\n  \"objective\": \"A2 CRUD test activity\",\n  \"village\": {\n    \"id\": \"6042466a-52d6-4f76-bec5-43489e9e0582\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 201 'Activity saved successfully'. Status forced to PLANNED."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activities - Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activities",
+                "all"
+              ]
+            },
+            "description": "Expected: 200 with 12 activities (11 existing records + this temporary A2 test activity). This folder runs before D1 creates its additional activity. A test script stores its UUID in collection variable a2ActivityId."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const rows = pm.response.json();",
+                  "const record = rows.find(x => x.objective === \"A2 CRUD test activity\");",
+                  "pm.test(\"A2 test activity is present\", function () { pm.expect(record, \"Run the matching Save request first\").to.exist; });",
+                  "if (record && record.id) { pm.collectionVariables.set(\"a2ActivityId\", record.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "A2 - Activities - Get by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/{{a2ActivityId}}"
+            },
+            "description": "Expected: 200 with the temporary A2 CRUD test activity. Run the matching Get All request first to capture the ID."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activities - Get by ID (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activities",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The activity with that id does not exist'"
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activities - Update",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/update/{{a2ActivityId}}"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activityDate\": \"2026-12-06\",\n  \"objective\": \"A2 CRUD test activity updated\",\n  \"village\": {\n    \"id\": \"6042466a-52d6-4f76-bec5-43489e9e0582\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Expected: 200 with an update-success message. This changes the temporary A2 test record, not a seed record."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activities - Delete (success)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/delete/{{a2ActivityId}}"
+            },
+            "description": "Expected: 200 'Activity deleted successfully'. Deletes only the temporary A2 test activity; it has no reports."
+          },
+          "response": []
+        },
+        {
+          "name": "A2 - Activities - Delete (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/delete/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "activities",
+                "delete",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            },
+            "description": "Expected: 404 'The activity with that id does not exist'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "D1 - Save activity (success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/save",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activityDate\": \"2026-12-10\",\n  \"objective\": \"D1 success test\",\n  \"village\": {\n    \"id\": \"ca4a646d-9e26-4091-a6ba-b2577e2fdc15\"\n  },\n  \"coordinator\": {\n    \"id\": \"b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3\"\n  },\n  \"status\": \"ACCOMPLISHED\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 201 'Activity saved successfully'. Status forced to PLANNED regardless of body."
+      },
+      "response": []
+    },
+    {
+      "name": "D1 - Past date (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/save",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activityDate\": \"2026-10-01\",\n  \"objective\": \"Past date test\",\n  \"village\": {\n    \"id\": \"12e256bf-f029-4bb5-97be-ea27870cd0cd\"\n  },\n  \"coordinator\": {\n    \"id\": \"60fd6b6c-b9c0-4802-bc95-9c6407e28bd4\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 400 'Activity date cannot be in the past'"
+      },
+      "response": []
+    },
+    {
+      "name": "D1 - Duplicate date (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/save",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "save"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"activityDate\": \"2026-11-25\",\n  \"objective\": \"Duplicate test\",\n  \"village\": {\n    \"id\": \"16231f4a-2648-4451-8829-410d3690240b\"\n  },\n  \"coordinator\": {\n    \"id\": \"491c8c64-8bcf-4a07-b890-de28b4f594a2\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 409 'Coordinator already has an activity on that date'. Patrick already has 620713c8 on 2026-11-25 (PLANNED)."
+      },
+      "response": []
+    },
+    {
+      "name": "D2 - PLANNED to ONGOING (success)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/0e592a16-2e16-40c9-8aac-66ebd32cd722/status?status=ONGOING",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "0e592a16-2e16-40c9-8aac-66ebd32cd722",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "ONGOING"
+            }
+          ]
+        },
+        "description": "Expected: 200 'Activity status updated successfully'. Activity 0e592a16 is currently PLANNED."
+      },
+      "response": []
+    },
+    {
+      "name": "D2 - Invalid transition (400)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/54f41385-5571-421f-a942-d385b10cf2fd/status?status=PLANNED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "54f41385-5571-421f-a942-d385b10cf2fd",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "PLANNED"
+            }
+          ]
+        },
+        "description": "Expected: 400 'Cannot change status from POSTPONED to PLANNED'. Activity 54f41385 is POSTPONED (final state)."
+      },
+      "response": []
+    },
+    {
+      "name": "D2 - Unknown activity (404)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/00000000-0000-0000-0000-000000000000/status?status=ONGOING",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "00000000-0000-0000-0000-000000000000",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "ONGOING"
+            }
+          ]
+        },
+        "description": "Expected: 404 'The activity with that id does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "D3 - Add activity type (success)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/60fd6b6c-b9c0-4802-bc95-9c6407e28bd4/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4",
+            "activity-types",
+            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
+          ]
+        },
+        "description": "Expected: 200 'Activity type added to the coordinator'. Alice gets Road Cleaning added (she only has Terrace Building)."
+      },
+      "response": []
+    },
+    {
+      "name": "D3 - Duplicate activity type (409)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+            "activity-types",
+            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
+          ]
+        },
+        "description": "Expected: 409 'The coordinator already has that activity type'. Cynthia already has Road Cleaning."
+      },
+      "response": []
+    },
+    {
+      "name": "D3 - Unknown coordinator (404)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/00000000-0000-0000-0000-000000000000/activity-types/d7ef572d-f802-49bd-a53b-0cb26975cea2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "00000000-0000-0000-0000-000000000000",
+            "activity-types",
+            "d7ef572d-f802-49bd-a53b-0cb26975cea2"
+          ]
+        },
+        "description": "Expected: 404 'The coordinator with that id does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "D4 - Move coordinator to cell (success)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+            "cell"
+          ],
+          "query": [
+            {
+              "key": "cellNumber",
+              "value": "4"
+            }
+          ]
+        },
+        "description": "Expected: 200 'Cell changed successfully'. Cynthia moves from Cell 1 to Cell 4 (free). Run C2 after to confirm Cell 1 is now free."
+      },
+      "response": []
+    },
+    {
+      "name": "D4 - Cell taken by another coordinator (409)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+            "cell"
+          ],
+          "query": [
+            {
+              "key": "cellNumber",
+              "value": "2"
+            }
+          ]
+        },
+        "description": "Expected: 409 'That cell is taken by another coordinator'. Cell 2 belongs to Alice."
+      },
+      "response": []
+    },
+    {
+      "name": "D4 - Unknown cell (404)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=99",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+            "cell"
+          ],
+          "query": [
+            {
+              "key": "cellNumber",
+              "value": "99"
+            }
+          ]
+        },
+        "description": "Expected: 404 'The cell with that cellNumber does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "D4 - Restore Cynthia to Cell 1",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/coordinators/b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3/cell?cellNumber=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "coordinators",
+            "b3bc9ad6-8f8f-4dc2-99a3-ff5104ff5bb3",
+            "cell"
+          ],
+          "query": [
+            {
+              "key": "cellNumber",
+              "value": "1"
+            }
+          ]
+        },
+        "description": "Restore Cynthia to Cell 1 after D4 success test. Run this to reset state."
+      },
+      "response": []
+    },
+    {
+      "name": "E1 - Save activity report (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=e4ff3d51-4713-442f-bc42-1695158521c2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity-reports",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "activityId",
+              "value": "e4ff3d51-4713-442f-bc42-1695158521c2"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"workDone\": \"Planted 200 trees around Kibagabaga village\",\n  \"remarks\": \"All planted trees were recorded for follow-up\",\n  \"attendance\": 75\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 201 'Activity report saved successfully'. Activity e4ff3d51 is ACCOMPLISHED (Patrick, Kibagabaga, 2026-10-25)."
+      },
+      "response": []
+    },
+    {
+      "name": "E1 - Non-accomplished activity (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=620713c8-789d-47dc-aa51-3c2bd0687c08",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity-reports",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "activityId",
+              "value": "620713c8-789d-47dc-aa51-3c2bd0687c08"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"workDone\": \"Attempted report\",\n  \"remarks\": \"Should be rejected\",\n  \"attendance\": 10\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 400 'Activity reports are only for ACCOMPLISHED activities'. Activity 620713c8 is PLANNED."
+      },
+      "response": []
+    },
+    {
+      "name": "E1 - Unknown activity (404)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/save?activityId=00000000-0000-0000-0000-000000000000",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity-reports",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "activityId",
+              "value": "00000000-0000-0000-0000-000000000000"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"workDone\": \"Test\",\n  \"remarks\": \"Unknown activity\",\n  \"attendance\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "description": "Expected: 404 'The activity with that id does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "E2 - Reports by village code",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/village/VIL-KGL-0216"
+        },
+        "description": "Expected: 200 with reports for Kibagabaga (VIL-KGL-0216), including the report created by E1. Newest submittedDate first. Run E1 first."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const rows = pm.response.json();",
+              "const report = rows.find(x => x.workDone === \"Planted 200 trees around Kibagabaga village\");",
+              "pm.test(\"E1 report appears in Kibagabaga history\", function () { pm.expect(report, \"Run E1 first\").to.exist; });",
+              "if (report && report.id) { pm.collectionVariables.set(\"e1ActivityReportId\", report.id); }"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "E3 - Delete activity with report (409)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/delete/e4ff3d51-4713-442f-bc42-1695158521c2"
+        },
+        "description": "Expected: 409 'That activity has activity reports, delete them first'. This is the same Kibagabaga activity used by E1."
+      },
+      "response": []
+    },
+    {
+      "name": "E3 - Delete activity report (success)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/delete/{{e1ActivityReportId}}"
+        },
+        "description": "Expected: 200 'Activity report deleted successfully'. Run E1, then E2 to capture the report ID, then run this request."
+      },
+      "response": []
+    },
+    {
+      "name": "E3 - Delete unknown report (404)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activity-reports/delete/00000000-0000-0000-0000-000000000000",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activity-reports",
+            "delete",
+            "00000000-0000-0000-0000-000000000000"
+          ]
+        },
+        "description": "Expected: 404 'The activity report with that id does not exist'"
+      },
+      "response": []
+    },
+    {
+      "name": "F1 - Activities grouped by status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/stats/by-status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "stats",
+            "by-status"
+          ]
+        },
+        "description": "Expected: 200 with one [status, count] row for each status currently present. Counts reflect earlier successful D1, D2 and F2 requests; they are not fixed seed counts."
+      },
+      "response": []
+    },
+    {
+      "name": "F2 - Cancel coordinator day",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/cancel-day?coordinatorId=60fd6b6c-b9c0-4802-bc95-9c6407e28bd4&date=2026-10-20",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "cancel-day"
+          ],
+          "query": [
+            {
+              "key": "coordinatorId",
+              "value": "60fd6b6c-b9c0-4802-bc95-9c6407e28bd4"
+            },
+            {
+              "key": "date",
+              "value": "2026-10-20"
+            }
+          ]
+        },
+        "description": "Expected: 200 '2 activities cancelled'. Alice has two activities on 2026-10-20: one already POSTPONED and one PLANNED. The JPQL update matches both because it excludes only ACCOMPLISHED; both rows are set to POSTPONED."
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus 1 - Dashboard summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/dashboard/summary",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "dashboard",
+            "summary"
+          ]
+        },
+        "description": "Expected: 200 {villages:5, coordinators:3, freeCells:1, activitiesToday:0, planned:4, activityReports:1}"
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus 2 - Activities page 0",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/page?page=0&size=5&sort=activityDate,desc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "activityDate,desc"
+            }
+          ]
+        },
+        "description": "Expected: 200 Page 0 of activities sorted by date DESC. totalElements=11, totalPages=3."
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus 2 - Activities page 1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/page?page=1&size=5&sort=activityDate,desc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "activityDate,desc"
+            }
+          ]
+        },
+        "description": "Expected: 200 Page 1 of activities sorted by date DESC."
+      },
+      "response": []
+    }
+  ]
 }

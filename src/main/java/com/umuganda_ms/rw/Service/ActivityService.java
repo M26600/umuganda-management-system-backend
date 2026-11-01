@@ -1,7 +1,9 @@
 package com.umuganda_ms.rw.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +21,11 @@ public class ActivityService {
     private final ActivityRepository activityRepository;
     private final ActivityReportRepository activityReportRepository;
 
-    public ActivityService(ActivityRepository activityRepository,
-                           ActivityReportRepository activityReportRepository) {
+    public ActivityService(ActivityRepository activityRepository, ActivityReportRepository activityReportRepository) {
+
         this.activityRepository = activityRepository;
         this.activityReportRepository = activityReportRepository;
+
     }
 
     public List<Activity> getAllActivities() {
@@ -33,29 +36,31 @@ public class ActivityService {
         return activityRepository.findById(id);
     }
 
-    // A2 & D1: Safe saving of activity
+    // A2 & D1
     public String saveActivity(Activity activity) {
-        if (activity.getActivityDate() == null || activity.getActivityDate().isBefore(LocalDate.now())) {
+
+        if (activity.getActivityDate() == null
+                || activity.getActivityDate().isBefore(LocalDate.now())) {
             return "Activity date cannot be in the past";
         }
 
-        if (activity.getCoordinator() != null && activity.getCoordinator().getId() != null) {
-            boolean conflict = activityRepository.existsByCoordinator_IdAndActivityDateAndStatusNot(
-                    activity.getCoordinator().getId(),
-                    activity.getActivityDate(),
-                    ActivityStatus.POSTPONED
-            );
-            if (conflict) {
-                return "Coordinator already has an activity on that date";
-            }
+        boolean conflict = activityRepository.existsByCoordinator_IdAndActivityDateAndStatusNot(
+                activity.getCoordinator().getId(),
+                activity.getActivityDate(),
+                ActivityStatus.POSTPONED
+        );
+
+        if (conflict) {
+            return "Coordinator already has an activity on that date";
         }
 
         activity.setStatus(ActivityStatus.PLANNED);
         activityRepository.save(activity);
+
         return "Activity saved successfully";
     }
 
-    // A2 & D2: General PUT update - MUST NOT change the status (status changes only via D2 PATCH)
+    // A2 & D2
     public String updateActivity(UUID id, Activity updatedActivity) {
         Optional<Activity> existingActivity = activityRepository.findById(id);
         if (existingActivity.isEmpty()) {
@@ -67,13 +72,12 @@ public class ActivityService {
         activity.setObjective(updatedActivity.getObjective());
         activity.setVillage(updatedActivity.getVillage());
         activity.setCoordinator(updatedActivity.getCoordinator());
-        // Notice: do NOT update status here, per requirement D2
 
         activityRepository.save(activity);
         return "Activity updated successfully";
     }
 
-    // A2 & E3: Delete activity (protected by activity reports check)
+    // A2 & E3 
     public String deleteActivity(UUID id) {
         Optional<Activity> existingActivity = activityRepository.findById(id);
         if (existingActivity.isEmpty()) {
@@ -89,17 +93,17 @@ public class ActivityService {
         return "Activity deleted successfully";
     }
 
-    // B2: Activities by status
+    // B2
     public List<Activity> getActivityByStatus(ActivityStatus status) {
         return activityRepository.findByStatusOrderByActivityDateAsc(status);
     }
 
-    // B3: Activities in a date range
+    // B3
     public List<Activity> getActivitiesBetween(LocalDate start, LocalDate end) {
         return activityRepository.findByActivityDateBetweenOrderByActivityDateAsc(start, end);
     }
 
-    // D2: Status flow
+    // D2
     public String updateActivityStatus(UUID id, ActivityStatus newStatus) {
         Optional<Activity> existingActivity = activityRepository.findById(id);
         if (existingActivity.isEmpty()) {
@@ -109,12 +113,11 @@ public class ActivityService {
         Activity activity = existingActivity.get();
         ActivityStatus currentStatus = activity.getStatus();
 
-        boolean allowed =
-                (currentStatus == ActivityStatus.PLANNED &&
-                        (newStatus == ActivityStatus.ONGOING || newStatus == ActivityStatus.POSTPONED))
-                ||
-                (currentStatus == ActivityStatus.ONGOING &&
-                        (newStatus == ActivityStatus.ACCOMPLISHED || newStatus == ActivityStatus.POSTPONED));
+        boolean allowed
+                = (currentStatus == ActivityStatus.PLANNED
+                && (newStatus == ActivityStatus.ONGOING || newStatus == ActivityStatus.POSTPONED))
+                || (currentStatus == ActivityStatus.ONGOING
+                && (newStatus == ActivityStatus.ACCOMPLISHED || newStatus == ActivityStatus.POSTPONED));
 
         if (!allowed) {
             return "Cannot change status from " + currentStatus + " to " + newStatus;
@@ -125,12 +128,12 @@ public class ActivityService {
         return "Activity status updated successfully";
     }
 
-    // F1: Activities per status as List<Object[]>
+    // F1
     public List<Object[]> getActivitiesStatsByStatus() {
         return activityRepository.countActivitiesByStatus();
     }
 
-    // F2: Coordinator is absent
+    // F2
     @Transactional
     public String cancelActivitiesForAbsentCoordinator(UUID coordinatorId, LocalDate date) {
         int cancelledCount = activityRepository.cancelActivitiesForCoordinatorOnDate(
@@ -142,7 +145,7 @@ public class ActivityService {
         return cancelledCount + " activities cancelled";
     }
 
-    // Bonus: Activities page by page
+    // Bonus of ctivities page by page
     public Page<Activity> getActivitiesPage(Pageable pageable) {
         return activityRepository.findAll(pageable);
     }

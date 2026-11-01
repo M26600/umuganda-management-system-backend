@@ -1,13 +1,25 @@
 package com.umuganda_ms.rw.Controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.umuganda_ms.rw.Service.VillageService;
 import com.umuganda_ms.rw.domain.Village;
 
-@RestController 
+@RestController
 @RequestMapping("/api/villages")
 public class VillageController {
 
@@ -17,21 +29,21 @@ public class VillageController {
         this.villageService = villageService;
     }
 
-    // A2: Save village
+    // A2
     @PostMapping("/save")
     public ResponseEntity<String> saveVillage(@RequestBody Village village) {
         String message = villageService.saveVillage(village);
         return ResponseEntity.status(HttpStatus.CREATED).body(message);
     }
 
-    // A2: Get all villages
+    // A2
     @GetMapping("/all")
     public ResponseEntity<List<Village>> getAllVillages() {
         List<Village> villages = villageService.getAllVillages();
         return ResponseEntity.ok(villages);
     }
 
-    // A2: Get village by id
+    // A2
     @GetMapping("/{id}")
     public ResponseEntity<?> getVillageById(@PathVariable UUID id) {
         Optional<Village> existingVillage = villageService.getVillageById(id);
@@ -43,7 +55,7 @@ public class VillageController {
         }
     }
 
-    // A2: Update village
+    // A2
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateVillage(
             @PathVariable UUID id,
@@ -56,7 +68,7 @@ public class VillageController {
         }
     }
 
-    // A2: Delete village
+    // A2
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteVillage(@PathVariable UUID id) {
         String message = villageService.deleteVillage(id);
@@ -67,14 +79,14 @@ public class VillageController {
         }
     }
 
-    // B1: Find villages by sectorName
+    // B1
     @GetMapping("/by-sector-name")
     public ResponseEntity<List<Village>> getVillagesBySectorName(@RequestParam String sectorName) {
         List<Village> villages = villageService.getVillagesBySectorName(sectorName);
         return ResponseEntity.ok(villages);
     }
 
-    // C4: Villages of a coordinator
+    // C4
     @GetMapping("/of-coordinator/{coordinatorId}")
     public ResponseEntity<?> getVillagesOfCoordinator(@PathVariable UUID coordinatorId) {
         Optional<List<Village>> villages = villageService.getVillagesOfCoordinator(coordinatorId);

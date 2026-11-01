@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.umuganda_ms.rw.Repository.ActivityTypeRepository;
 import com.umuganda_ms.rw.domain.ActivityType;
 
-@Service 
+@Service
 public class ActivityTypeService {
 
     private final ActivityTypeRepository activityTypeRepository;
@@ -26,13 +26,13 @@ public class ActivityTypeService {
         return activityTypeRepository.findById(id);
     }
 
-    // A2: Save activity type
+    // A2
     public String saveActivityType(ActivityType activityType) {
         activityTypeRepository.save(activityType);
         return "Activity type saved successfully";
     }
 
-    // A2: Update activity type
+    // A2
     public String updateActivityType(UUID id, ActivityType updatedActivityType) {
         Optional<ActivityType> existingActivityType = activityTypeRepository.findById(id);
         if (existingActivityType.isEmpty()) {
@@ -44,7 +44,7 @@ public class ActivityTypeService {
         return "Activity type updated successfully";
     }
 
-    // A2: Delete activity type
+    // A2
     public String deleteActivityType(UUID id) {
         Optional<ActivityType> existingActivityType = activityTypeRepository.findById(id);
         if (existingActivityType.isEmpty()) {
@@ -54,7 +54,7 @@ public class ActivityTypeService {
         return "Activity type deleted successfully";
     }
 
-    // C3: Activity types nobody holds
+    // C3
     public List<ActivityType> getUnusedActivityTypes() {
         return activityTypeRepository.findUnusedActivityTypes();
     }
